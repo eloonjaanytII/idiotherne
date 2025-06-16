@@ -38,7 +38,7 @@ const MovieDetailScore = ({filmId}) => {
           <input
             key={i}
             type="radio"
-            className={`mask mask-star-2 ${isLeftHalf ? 'mask-half-1' : 'mask-half-2'} bg-neutral-content`}
+            className={`mask mask-star-2 ${isLeftHalf ? 'mask-half-1' : 'mask-half-2'} bg-orange-400`}
             value={value}
             checked={rate === value}
             onChange={() => setRating(value)}

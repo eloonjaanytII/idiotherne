@@ -9,7 +9,7 @@ const MovieCard = ({item}) => {
   return (
       <Link to={`${item.kinopoiskId}`} 
             className="flex flex-col items-center text-center card shadow-md w-[100%] h-[30vh] md:h-[100%] md:w-full m-auto 
-                       transition-transform duration-400 hover:scale-103 bg-stone-200 pb-5 border-1 md:border-0" 
+                       transition-transform duration-400 hover:scale-103 bg-orange-200 pb-5 border-1 md:border-0 text-orange-900 " 
             key={item.title}>
         <figure className="relative w-[95%] min-h-[80%] md:h-[300px] overflow-hidden rounded-md ">
           {!imageLoaded && (

@@ -1,7 +1,7 @@
 const FavoriteFilm = ({nameRu, posterUrl, idx}) => {
 
   return (
-    <div className='w-[100%] h-15 text-base-200 flex justify-between items-center border-2 border-base-200 bg-orange-300 rounded-md pl-4 hover:bg-accent hover:scale-99 transition-transform duration-200'>
+    <div className='w-[100%] h-15 text-black flex justify-between items-center border-2 border-base-200 bg-orange-300 rounded-md pl-4 hover:bg-accent hover:scale-99 transition-transform duration-200'>
         <div>
           {idx}.
         </div>

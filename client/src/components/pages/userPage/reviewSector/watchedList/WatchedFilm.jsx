@@ -3,7 +3,7 @@ import React from 'react'
 const WatchedFilm = ({nameRu, posterUrl, year, idx}) => {
 
   return (
-    <div className='w-[100%] h-15 flex justify-between items-center border-1 border-neutral-content rounded-md pl-4 bg-primary hover:bg-accent hover:scale-99 transition-transform duration-200'>
+    <div className='w-[100%] h-15 flex justify-between items-center border-1 border-neutral-content rounded-md pl-4 bg-base-300 hover:bg-accent hover:text-accent-content hover:scale-99 transition-transform duration-200'>
         <div>
           {idx}.
         </div>

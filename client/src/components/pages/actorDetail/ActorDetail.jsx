@@ -46,12 +46,12 @@ const ActorDetail = () => {
           <p>{data.hasAwards}</p>
         </div>
       </div>
-      <div className='flex flex-col items-center '>
-        <p className='text-2xl mb-4'>Фильмы:</p>
+      <div className='flex flex-col justify-start'>
+        <p className='text-2xl mb-4 text-center'>Фильмы:</p>
         <div className='flex flex-col overflow-y-auto pr-2 gap-2 max-h-[30vh] md:max-h-[80vh] scrollbar-review'>
           {filteredFilms.map((film, idx)=> (
             <Link key={film.filmId} to={`/movies/${film.filmId}`}>
-              <div className='w-[100%] min-h-15 flex justify-between items-center border-2  bg-teal-900 rounded-md p-4 hover:bg-accent hover:scale-99 transition-transform duration-200'>
+              <div className='w-[100%] min-h-15 flex justify-between items-center border-2 bg-base-300 rounded-md p-4 hover:bg-accent hover:text-white hover:scale-99 transition-transform duration-200'>
                 <div>
                   {idx+1}.
                 </div>
