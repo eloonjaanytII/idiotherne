@@ -9,7 +9,7 @@ const NavbarUserIcon = ({userId, handlerLogout}) => {
 
   return (
     <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-          <div tabIndex={0} role="button" className="mb-2 flex items-center border-2 border-accent w-15 h-15 rounded-[50%] cursor-pointer hover:bg-accent">
+          <div tabIndex={0} role="button" className="mb-3 flex items-center border-2 border-accent w-15 h-15 rounded-[50%] cursor-pointer hover:bg-accent">
             {
               !data && <button className='btn w-[full] h-[full] bg-blue-500 rounded-full'>User</button>
             }

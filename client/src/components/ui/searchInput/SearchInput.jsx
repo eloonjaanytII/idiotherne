@@ -24,7 +24,7 @@ const SearchInput = ({mode, setKinoId}) => {
   
   return (
     <div className="relative ${mode === 'navbar' ? w-[30vw] : w-full}">
-      <label className="input grow w-full bg-accent">
+      <label className="input grow w-full bg-gray-200 text-black">
         {mode === 'navbar' &&
         <img src='/film-reel.png' className="h-[1.5em] opacity-100"/>}
         <input

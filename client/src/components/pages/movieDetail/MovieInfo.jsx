@@ -13,7 +13,7 @@ export const MovieInfo = ({filmDetail, staff}) => {
               <p className='text-center font-semibold text-xl mb-3 mt-3'>Режиссёр:</p>
               {staff.filter(actor => actor.professionText === 'Режиссеры').map(el => (
                   <Link to={`/actor/${el.staffId}`} key={el.staffId}>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-gray-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
+                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
                           <img src={el.posterUrl} width="50rem" className='object-contain h-[90%] rounded-lg'/>
                           <p className='text-lg text-center mr-4'>{el.nameRu}</p>
                         </div>
@@ -25,7 +25,7 @@ export const MovieInfo = ({filmDetail, staff}) => {
               <p className='text-center font-semibold text-xl mb-3 mt-3'>Оператор:</p>
               {staff.filter(actor => actor.professionText === 'Операторы').map(el => (
                   <Link to={`/actor/${el.staffId}`} key={el.staffId}>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-gray-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
+                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
                           <img src={el.posterUrl} width="50rem" className='object-contain h-[90%] rounded-lg'/>
                           <p className='text-lg text-center mr-4'>{el.nameRu}</p>
                         </div>
@@ -43,7 +43,7 @@ export const MovieInfo = ({filmDetail, staff}) => {
                 .map(el => (
                   <Link to={`/actor/${el.staffId}`} key={el.staffId}>
                       <li>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-gray-300 h-18 hover:scale-102 transition-transform duration-200'>
+                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200'>
                           <img src={el.posterUrl} width="50rem" className='pl-1 object-contain h-[90%] rounded-lg'/>
                           <p className='text-lg text-center mr-4'>{el.nameRu}</p>
                         </div>

@@ -39,6 +39,7 @@
   display: flex;
   font-family: "SF-Regular";
   align-items: center;
+  border: 0.1rem solid rgb(255, 255, 255);
   border-radius: 2rem;
   height: 2.5rem;
   padding: 1rem;
@@ -110,7 +111,7 @@
 
 
 @plugin "daisyui" {
-  themes: autumn --default, my_abyss --prefersdark;
+  themes: caramellatte --default, my_abyss --prefersdark;
 }
 
 @theme {
