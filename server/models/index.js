@@ -1,18 +1,10 @@
+const {Film} = require('./Film');
 const {User} = require('./User');
 const {Review} = require('./Review');
-const {UserPersonal} = require('./UserPersonal');
-const {UserFilmList} = require('./UserFilmList');
-
-User.hasOne(UserPersonal, {
-    foreignKey: 'userId',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-});
-UserPersonal.belongsTo(User, {
-  foreignKey: 'userId',
-}); 
+const {UserFilms} = require('./UserFilms');
 
 
+// Связь пользователя с его рецензиями
 User.hasMany(Review, {
     foreignKey: 'userId',
     onDelete: 'CASCADE',
@@ -22,20 +14,24 @@ Review.belongsTo(User, {
   foreignKey: 'userId',
 })
 
-User.hasMany(UserFilmList, {
-    foreignKey: 'userId',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-});
-UserFilmList.belongsTo(User, {
+// Связь пользователя с фильмами
+User.belongsToMany(Film, {
+  through: UserFilms,
   foreignKey: 'userId',
+  otherKey: 'kinopoiskId',
+  onDelete: 'CASCADE'
 })
 
-
+Film.belongsToMany(User, {
+  through: UserFilms,
+  foreignKey: 'kinopoiskId',
+  otherKey: 'userId',
+  onDelete: 'CASCADE'
+})
 
 module.exports = {
-    User, 
+    Film,
+    User,
     Review,
-    UserPersonal,
-    UserFilmList
+    UserFilms,
 }

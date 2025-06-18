@@ -11,7 +11,6 @@ import { resetFilters, setCountry, setGenre, setOrder, setYear } from '../../fea
 
 const MovieListTop = () => {
 
-  
   const [currentPage, setCurrentPage] = useState(1);
 
   const {countries, genres, order, yearFrom, yearTo} = useSelector( state => state.currentMovie)
@@ -22,9 +21,7 @@ const MovieListTop = () => {
 
   const movieType = TOP_LISTS.find(elem => `${elem.url}` === location.pathname.split('/')[1]);
 
-
   const isCollections = movieType.useCollections;
-
 
   const queryCollections = useGetFilmsCollectionsQuery(
     {type: movieType.value, page: currentPage},

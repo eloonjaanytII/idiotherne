@@ -8,8 +8,6 @@ const MovieDetail = lazy(() => import('./components/pages/movieDetail/MovieDetai
 const ActorDetail = lazy(() => import('./components/pages/actorDetail/ActorDetail'));
 const MovieListTop = lazy(() => import('./components/pages/movieListTop/MovieListTop'));
 const Registration = lazy(() => import('./components/pages/registration/Registration'));
-const AvatarSelect = lazy(() => import('./components/pages/registration/AvatarSelect'));
-const PersonalSelect = lazy(() => import('./components/pages/registration/PersonalSelect'));
 const UserPage = lazy(() => import('./components/pages/userPage/UserPage'));
 
 import Layout from './components/ui/layout/Layout'
@@ -37,10 +35,10 @@ const App = () => {
             element: <MovieListTop />
             })),
             ...TOP_LISTS.map(item => ({
-            path: `${item.url}/:id`,
+            path: `${item.url}/:filmId`,
             element: <MovieDetail />})),
             {
-              path: 'movies/:id', element: <MovieDetail />
+              path: 'movies/:filmId', element: <MovieDetail />
             },
             {
               path: 'users-list', 
@@ -68,17 +66,6 @@ const App = () => {
            <Registration />
          </Suspense>
          },
-        {path: 'avatar-select', 
-         element: 
-         <Suspense fallback={<div>isLoading...</div>}>
-            <AvatarSelect />
-         </Suspense>
-         },
-        {path: 'personal-select', 
-          element: 
-          <Suspense fallback={<div>isLoading...</div>}>
-            <PersonalSelect />
-         </Suspense>}
       ]
     },
     {

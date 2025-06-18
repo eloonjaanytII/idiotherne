@@ -13,7 +13,7 @@ const SearchInputListReview = ({results, setKeyword, setResults, setKinoId}) => 
                       setResults([]);
                   }}>
                   {item.nameRu ? `${item.nameRu}, ${item.year}` : 'Совпадений не найдено'}
-                  <img alt="empty" src = {item.posterUrlPreview} className="w-8 h-8 rounded-full border border-accent"/>
+                  <img alt="empty" src = {item.posterUrlPreview} className="w-8 h-8 rounded-full border border-accent hidden md:block"/>
                 </div>
             </li>)
           )}

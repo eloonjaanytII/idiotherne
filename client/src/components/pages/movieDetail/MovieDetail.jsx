@@ -1,104 +1,78 @@
 
-import { useGetFilmDetailQuery, useGetSequelsAndPrequelsQuery, useGetStaffQuery } from '../../services/kinopoisk';
+import { useGetStaffQuery } from '../../services/kinopoisk';
 import { Link, useParams } from 'react-router-dom';
 import ErrorMessage from '../../ui/errorMessage/ErrorMessage';
-import { Tooltip } from 'react-tooltip'
-import { useSendFilmsMutation } from '../../services/films';
+import { useGetFilmQuery, useGetUserFilmFlagQuery, useSendFilmsMutation } from '../../services/films';
+
+import { useState } from 'react';
+import { useEffect } from 'react';
+import MovieDetailScore from './MovieDetailScore';
+import { useGetMovieReviewsQuery } from '../../services/review';
+import MovieReviewPart from './MovieReviewPart';
+import MovieFlags from './MovieFlags';
+import { MovieInfo } from './MovieInfo';
 
 const MovieDetail = () => {
 
-  const {id} = useParams();
+  const {filmId} = useParams();
+  const [send] = useSendFilmsMutation();
 
-  const {
-  data: filmDetail,
-  error: filmDetailError,
-  isLoading: isFilmDetailLoading,
-} = useGetFilmDetailQuery(id);
+  const { data: filmDetail, error: filmDetailError, isLoading: isFilmDetailLoading} = useGetFilmQuery(filmId);
+  const { data: staff, error: staffError, isLoading: isStaffLoading} = useGetStaffQuery(filmId);
+  const { data : dataFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(filmId);
+  const { data: movieReviews, isLoading: isLoadingReviews} = useGetMovieReviewsQuery(filmId)
 
-const {
-  data: staff,
-  error: staffError,
-  isLoading: isStaffLoading,
-} = useGetStaffQuery(id);
+  const [flags, setFlags] = useState({isWatched: false, isFavorite: false})
 
-  const [send, {error, isLoading}] = useSendFilmsMutation();
-
-  const handlerWatch = async () => {
-    try {
-      await send(
-        { 
-          kinopoiskId: filmDetail.kinopoiskId,
-          nameRu: filmDetail.nameRu,
-          nameOriginal: filmDetail.nameOriginal,
-          posterUrl: filmDetail.posterUrl,
-          year: filmDetail.year,
-          filmLength: filmDetail.filmLength,
-          countries: filmDetail.countries,
-          genres: filmDetail.genres
-        })
-    } catch (error) {
-        console.log(error)
+  useEffect(() => {
+    if (dataFlag && isSuccessFlag) {
+      setFlags({
+        isWatched: dataFlag.isWatched,
+        isFavorite: dataFlag.favorite
+      })
     }
+  }, [isSuccessFlag, dataFlag])
 
-  }
+  const handleToggle = (field) => {
+    const newValue = !flags[field];
+    const newFlags = { ...flags, [field]: newValue };
+    setFlags(newFlags);
 
-  if (isFilmDetailLoading || isStaffLoading) return <div>Is Loading...</div>
-  
+    try {
+      send({
+        kinopoiskId: filmId,
+        isWatched: newFlags.isWatched,
+        favorite: newFlags.isFavorite});
+    } catch(e) {
+      console.error(e)
+    }};
+
+  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews) return <div>Is Loading...</div>
   if (filmDetailError || staffError) return <ErrorMessage />
 
   return (
     <div className='m-auto w-[80vw] mt-10'>
-    <div className='grid grid-cols-[30%_40%_30%] gap-8'>
-      <img alt={filmDetail.kinopoiskId} width="100%" src={filmDetail.posterUrl}/>
-      <div className='flex flex-col w-full'>
-        <h1 className='text-4xl text-center mb-16'>{`${filmDetail.nameRu} (${filmDetail.year})`}</h1>
-        <h3>{filmDetail.ratingAgeLimits === 'age18' ? `18+`: `12+`}</h3>
-        <h2>{filmDetail.shortDescription || 'Описание отсутствует'}</h2>
-        <div className="divider divider-accent">Информация о фильме</div>
-        <div className='grid grid-cols-2 gap-y-2'>
-          <div>Страна производства</div>
-          <div>{filmDetail.countries.map(item => <div>{item.country} </div>)}</div>
-
-          <div>Год производства</div>
-          <div>{filmDetail.year}</div>
-
-          <div>Жанр</div>
-          <div>{filmDetail.genres.map(item => <div>{item.genre} </div>)}</div>
-
-          <div>Длительность</div>
-          <div>{`${filmDetail.filmLength} мин`}</div>
-
+      <div className='grid grid-cols-1 md:grid-cols-[50%_50%] border-b-2 p-3 text-center'>
+        <div className="md:border-r-2 flex flex-col justify-start items-center ">
+          <img alt={filmDetail.kinopoiskId} width="60%" className="shadow-2xl mb-5" src={filmDetail.posterUrl}/>
+          <h1 className="text-5xl mb-5 font-jura tracking-tighter ">{filmDetail.nameRu}</h1>
+          <div className="font-jura tracking-tighter text-xl">
+              {
+                filmDetail.genres.map(g => g.genre).join(", ")
+              }
+          </div>
+          <div className="font-jura tracking-tighter text-xl">
+              {filmDetail.countries.map(g => g.country).join(", ")}
+          </div>
+          <div className="font-jura tracking-tighter text-xl mb-3">
+            { filmDetail.filmLength !== 0 && `${filmDetail.filmLength} мин.`}
+          </div>
+          <MovieFlags flags={flags} handleToggle={handleToggle}/>
+          <MovieDetailScore filmDetail={filmDetail} filmId={filmId} dataFlag={dataFlag} isSuccessFlag={isSuccessFlag}/>
         </div>
+        <MovieInfo filmDetail={filmDetail} staff={staff}/>
       </div>
-      <div>
-        <div className='mb-17'>
-          <div className='text-3xl'>{filmDetail.ratingKinopoisk}</div>
-          <div>{`${filmDetail.ratingKinopoiskVoteCount} оценка`}</div>
-        </div>
-        <h2 className='mb-4'>В главных ролях:</h2>
-        <ul>
-          {staff
-            .filter(actor => actor.professionText === 'Актеры')
-            .slice(0, 10)
-            .map(el => (
-              <Link to={`/actor/${el.staffId}`} key={el.staffId}>
-                  <li>
-                    <Tooltip id={`tooltip-${el.staffId}`} place="top-start" >
-                      <img src={el.posterUrl} width="100" />
-                    </Tooltip>
-                    <div data-tooltip-id={`tooltip-${el.staffId}`}>
-                      {el.nameRu}
-                    </div>
-                  </li>
-              </Link>
-            ))
-          }
-        </ul>
-        <button className="btn btn-accent" onClick={() => handlerWatch()}>
-          Просмотрено
-        </button>
-      </div>
-    </div>
+      <MovieReviewPart movieReviews={movieReviews} />
     </div>
   )
 }

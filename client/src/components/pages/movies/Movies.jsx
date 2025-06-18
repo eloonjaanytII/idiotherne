@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react'
 import useMovieQuery from '../../hooks/useMovieQuery'
 import BearCarousel, {BearSlideImage} from 'bear-react-carousel';
 import { Link, Outlet } from 'react-router-dom';
 import ErrorMessage from '../../ui/errorMessage/ErrorMessage';
-import { useDispatch } from 'react-redux';
-import { changeTitle } from '../../features/navbarTitleSlice';
 
 const Movies = () => {
   
-  const dispatch = useDispatch();
-
   const {isLoading,
          hasError,
          responsePopular,
@@ -17,27 +12,17 @@ const Movies = () => {
          responseFilms,
          responseSerial,
          responseCartoons} = useMovieQuery();
-  
-  useEffect(() => {
-      dispatch(changeTitle("Карусель фильмов"))
-  
-      return () => {
-        dispatch(changeTitle(''))
-      }
-    }, [dispatch]);
-
-
 
   const sequelizeMovies = data => {
+
     if (!data) return <div>Нет данных</div>
     return data.map(row => (
       <Link key={row.kinopoiskId} to={`/movies/${row.kinopoiskId}`}>
-        <BearSlideImage imageUrl={row.posterUrl}/>
+        <BearSlideImage imageUrl={row.posterUrl} />
       </Link>
     )
     );
   }
-
   if (isLoading) return <div>Загрузка...</div>;
   if (hasError) return <ErrorMessage />;
 
@@ -72,8 +57,8 @@ const Movies = () => {
   return (
     <div className='m-auto max-w-3xl flex flex-col gap-y-2'>
       {carouselArr.map(item => (
-        <div className='flex flex-col items-center gap-y-2'>
-          <h1>{item.title}</h1>
+        <div className='flex flex-col items-center gap-y-6' key = {item.title}>
+          <h1 className='text-3xl'>{item.title}</h1>
           <BearCarousel
             slidesPerView = {1}
             slidesPerGroup={1}
@@ -81,7 +66,6 @@ const Movies = () => {
             isEnableLoop
             isEnableNavButton
             spaceBetween = {5}
-            height={{ widthRatio: 21, heightRatio: 6 }}
             breakpoints= {{
               768: {
                 slidesPerView: 5
@@ -89,23 +73,11 @@ const Movies = () => {
             }
             }
             data={item.data}
+            className='hover:scale-110 transition-transform duration-500 mb-2'
           />
         </div>
       )
   )}
-      <figure class="diff aspect-[16/9]" tabIndex={0}>
-        <div class="diff-item-1" role="img" tabIndex={0}>
-          <div className="bg-primary text-primary-content grid place-content-center text-9xl font-black">
-            DAISY
-          </div>
-        </div>
-        <div class="diff-item-2 relative " role="img"> 
-          <div class="kurosawa-noise"></div>
-          <div class="bg-black grayscale-100 contrast-130 grid place-content-center text-9xl text-white">DAISY</div>
-        </div>
-        <div class="diff-resizer"></div>  
-      </figure>
-
       <div className="mt-8">
           <Outlet />
       </div>

@@ -10,22 +10,26 @@ const UsersList = () => {
 
     if (isLoading || !data) return <div>is Loading...</div>
 
-    const { countUsers, usersList } = data;
+    console.log(data)
 
   return (
     <div>
-        <div>
-            {countUsers}
+        <div className='mb-8 text-center text-3xl' >
+            <p >ЗООПАРК:</p>
+            <p>( Всего голов: { data.countUsers} )</p>
         </div>
-        <div>
-            <ul>
-                {usersList.map(user => <li key={user.id}>{user.id} 
-                    <Link to={`/user/${user.id}`} >
-                        {user.username}
-                    </Link>
-                    </li>)}
-            </ul>
-        </div>
+        <ul className='flex flex-wrap gap-5 m-auto justify-center'>
+            {data.usersList.map(user => (
+                <Link to={`/user/${user.id}`}>
+                <li key={user.id} className='border-2 rounded-xl border-accent-content p-6 flex flex-col justify-center items-center text-xl hover:bg-accent'>
+                    
+                        <img alt="pickha" src={`/animals/${user.avatar}.png`}/>
+                    <p>{user.username}</p>
+                </li>
+                </Link>
+                ))
+            }
+        </ul>
     </div>
   )
 }

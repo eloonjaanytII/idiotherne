@@ -25,7 +25,7 @@ const MovieList = ({items, totalPages, currentPage, setCurrentPage, isLoading}) 
           <Pagination {...{totalPages, currentPage, setCurrentPage}} />
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4 ">
         {!isLoading && items.length > 0 && items.map(item => (
           <MovieCard item = {item} key={item.kinopoiskId}/>
         ))}

@@ -5,10 +5,15 @@ import { setCredentials } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import SignInForm  from './signInForm/SignInForm';
 import SignUpForm from './signUpForm/SignUpForm';
+import PictureRegistration from './PictureRegistration';
+import ToggleRegistration from './ToggleRegistration';
 
 const Registration = () => {
 
   const [mode, setMode] = useState('login');
+  const [step, setStep] = useState(0);
+  const [totem, setTotem] = useState("bird");
+  const [gender, setGender] = useState("female")
 
   const [register, { error: registerError, isLoading: registerLoading }] = useRegisterMutation();
   const [login, { error: loginError, isLoading: loginLoading }] = useLoginMutation();
@@ -23,7 +28,7 @@ const Registration = () => {
       if(mode === 'login') {
         response = await login(formData).unwrap();
       } else {
-        response = await register(formData).unwrap();
+        response = await register({ ...formData, avatar : totem, gender }).unwrap();
       }
       
       localStorage.setItem('token', response.token)
@@ -37,35 +42,18 @@ const Registration = () => {
   }
 
   return (
-    <div className='flex flex-row min-h-screen w-full'>
-      <div className='relative w-1/2 bg-[url(/ezhiki.webp)] m-3 rounded-md bg-cover opacity-85 bg-center'>
-        <div className="absolute inset-0 bg-black/50 rounded-md flex justify-end items-end p-4">
-          <div className="text-2xl w-[80%] text-end hover:cursor-default">
-            <div className="tooltip" data-tip="А. Введенский 'Потец'">
-              <p>Обнародуй нам, отец, <br/>что такое есть потец</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='w-1/2 flex flex-col justify-center items-center'>
-        <div className='w-[50%] m-auto'>
-          <div className='flex gap mb-15 w-full bg-accent rounded-md'>
-            <button 
-              className={`w-1/2 p-5 btn ${mode === 'login' ? `btn-outline text-white` : `btn-ghost`}`}
-              onClick={() => setMode('login')}>
-              Валидация
-            </button>
-            <button 
-              className={`w-1/2 p-5 btn ${mode === 'register' ? `btn-outline text-white` : `btn-ghost`}`}
-              onClick={() => setMode('register')}>
-              Идиотизация
-            </button>
-          </div>
+    <div className='flex min-h-screen w-full '>
+      <PictureRegistration />
+      <div className='md:w-1/2 w-full flex flex-col justify-center items-center'>
+        <div className='w-[90%] m-auto'>
+          {step !== 1 &&
+          <ToggleRegistration {...{mode, setMode}}/>
+          } 
           {mode === 'login' 
           ? 
           <SignInForm {...{handlerSubmit, loginError}}/> 
           : 
-          <SignUpForm {...{handlerSubmit, registerError}}/>
+          <SignUpForm {...{handlerSubmit, registerError, step, setStep, totem, setTotem, gender, setGender}}/>
           }
         </div>
       </div>

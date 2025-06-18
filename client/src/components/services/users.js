@@ -17,7 +17,19 @@ export const usersApi = createApi({
       query: () => `/users-list`
     }),
 
+    userData: builder.query({
+      query: (paramsId) => `/user/${paramsId}`
+    }),
+
+    changeStatus: builder.mutation({
+      query: status => ({
+        url: `/status`,
+        method: "PUT",
+        body: status
+      })
+    }),
+    
   }),
 });
 
-export const {useUsersListQuery} = usersApi;
+export const {useUsersListQuery, useUserDataQuery, useChangeStatusMutation} = usersApi;

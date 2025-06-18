@@ -4,8 +4,23 @@
 }
 
 @font-face {
-    font-family: "CormorantGaramond";
-    src: url('./fonts/CormorantGaramond-VariableFont_wght.ttf');
+    font-family: "PlayfairDisplay";
+    src: url('./fonts/PlayfairDisplay-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: "SF-Regular";
+    src: url('./fonts/SF-Pro-Display-Regular.otf');
+}
+
+@font-face {
+    font-family: "SF-Semibold";
+    src: url('./fonts/SF-Pro-Display-Semibold.otf');
+}
+
+@font-face {
+    font-family: "Jura";
+    src: url('./fonts/Jura-VariableFont_wght.ttf');
 }
 
 @font-face {
@@ -13,56 +28,103 @@
     src: url('./fonts/SyneMono-Regular.ttf');
 }
 
-
 @import "tailwindcss";
 
-
-@plugin "daisyui" {
-  themes: autumn --default, dark --prefersdark;
+.scrollbar-review {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(72, 70, 70) white;
 }
 
+.button-film {
+  display: flex;
+  font-family: "SF-Regular";
+  align-items: center;
+  border: 0.1rem solid rgb(255, 255, 255);
+  border-radius: 2rem;
+  height: 2.5rem;
+  padding: 1rem;
+  color: #fff;
+  background-color: #000000;
+}
+
+.button-film.active {
+  display: flex;
+  font-family: "SF-Regular";
+  align-items: center;
+  border-radius: 2rem;
+  height: 2.5rem;
+  padding: 1rem;
+  border: 0.1rem solid black;
+  color: black;
+  background-color: #fff;
+}
+
+/* для Chrome/Edge/Safari */
+.scrollbar-review::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+.scrollbar-review::-webkit-scrollbar-track {
+  background: white;
+}
+.scrollbar-review::-webkit-scrollbar-thumb {
+  background-color: rgb(72, 70, 70);
+  border-radius: 5px;
+  border: 3px solid white;
+}
+
+
 @plugin "daisyui/theme" {
-  name: "dark";
+  name: "my_abyss";
+  default: false;
   prefersdark: true;
-  --color-base-100: oklch(0% 0 0);
-  --color-base-200: oklch(21% 0.006 56.043);
-  --color-base-300: oklch(26% 0.007 34.298);
-  --color-base-content: oklch(55% 0 0);
-  --color-primary: oklch(44% 0.011 73.639);
-  --color-primary-content: oklch(87% 0 0);
-  --color-secondary: oklch(66% 0.295 322.15);
-  --color-secondary-content: oklch(87% 0 0);
-  --color-accent: oklch(26% 0 0);
-  --color-accent-content: oklch(87% 0 0);
-  --color-neutral: oklch(26% 0.007 34.298);
-  --color-neutral-content: oklch(87% 0 0);
-  --color-info: oklch(37% 0.077 168.94);
-  --color-info-content: oklch(30% 0.056 229.695);
-  --color-success: oklch(52% 0.154 150.069);
-  --color-success-content: oklch(26% 0.051 172.552);
-  --color-warning: oklch(25% 0.092 26.042);
-  --color-warning-content: oklch(26% 0.079 36.259);
-  --color-error: oklch(71% 0.194 13.428);
-  --color-error-content: oklch(27% 0.105 12.094);
-  --radius-selector: 0.25rem;
+  color-scheme: "dark";
+  --color-base-100: oklch(20% 0.08 209);
+  --color-base-200: oklch(15% 0.08 209);
+  --color-base-300: oklch(10% 0.08 209);
+  --color-base-content: oklch(90% 0.076 70.697);
+  --color-primary: oklch(27% 0.046 192.524);
+  --color-primary-content: oklch(98% 0.018 155.826);
+  --color-secondary: oklch(83.27% 0.0764 298.3);
+  --color-secondary-content: oklch(43.27% 0.0764 298.3);
+  --color-accent: oklch(43% 0 0);
+  --color-accent-content: oklch(98% 0 0);
+  --color-neutral: oklch(30% 0.08 209);
+  --color-neutral-content: oklch(90% 0.076 70.697);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(79% 0.209 151.711);
+  --color-success-content: oklch(26% 0.065 152.934);
+  --color-warning: oklch(84.8% 0.1962 84.62);
+  --color-warning-content: oklch(44.8% 0.1962 84.62);
+  --color-error: oklch(65% 0.1985 24.22);
+  --color-error-content: oklch(27% 0.1985 24.22);
+  --radius-selector: 2rem;
   --radius-field: 0.25rem;
-  --radius-box: 0.25rem;
-  --size-selector: 0.3125rem;
-  --size-field: 0.1875rem;
-  --border: 0.5px;
-  --depth: 0;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
   --noise: 0;
 }
 
 
+@plugin "daisyui" {
+  themes: caramellatte --default, my_abyss --prefersdark;
+}
+
 @theme {
     --font-idiotherne: "SyneMono", 'sans-serif';
+    --font-filmName: "PlayfairDisplay", 'sans-serif';
+    --font-semibold: "SF-Semibold", 'sans-serif';
+    --font-regular: "SF-Regular", 'sans-serif';
+    --font-jura: "Jura", "sans-serif";
 }
 
 html {
     scrollbar-width: none;
     font-family: "WDXL Lubrifont TC", sans-serif;
-    background-color: #f8f1e3 ;
 }
 
 .no-scrollbar {

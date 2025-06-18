@@ -24,7 +24,12 @@ export const reviewApi = createApi({
     getUserReview: builder.query({  
         query: (userId) => `/user-review/${userId}`
     }),
+
+    getMovieReviews: builder.query({  
+        query: (filmId) => `/movie-review/${filmId}`
+    }),
+
   }),
 });
 
-export const {useSendReviewMutation, useGetUserReviewQuery} = reviewApi;
+export const {useSendReviewMutation, useGetUserReviewQuery, useGetMovieReviewsQuery} = reviewApi;

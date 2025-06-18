@@ -28,7 +28,7 @@ const SelectMovie = ({
         { title: '1940–1949', yearFrom: 1940, yearTo: 1949 },
       ];
   return (
-    <div className='flex flex-row gap-2 pr-8 pl-8'>
+    <div className='grid md:grid-cols-5 grid-cols-2 gap-2 pr-8 pl-8'>
         <select value={countries} className="select select-accent" onChange={e => onChangeCountry(e.target.value)}>
             {countriesList.map(item => (
                 <option key = {item.id} value = {item.id}>{item.country}</option>

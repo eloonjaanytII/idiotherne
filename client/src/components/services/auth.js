@@ -27,14 +27,6 @@ export const authApi = createApi({
         body: credentials
       })
     }),
-    updateUserInfo: builder.mutation({
-      query: credentials => ({
-        url: `/registration/personal-details`,
-        method: "PUT",
-        body: credentials
-      })
-    }),
-
     currentUser: builder.query({
       query: () => `/me`
     }),

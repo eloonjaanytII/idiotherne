@@ -27,7 +27,7 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
   return (
     <div className="join my-4">
       {start > 1 && (
-        <button className="join-item btn btn-dash btn-accent" onClick={backBatchPage}>
+        <button className="join-item btn btn-dash btn-secondary" onClick={backBatchPage}>
           «
         </button>
       )}
@@ -35,13 +35,13 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
         <button
           key={page}
           onClick={() => setCurrentPage(page)}
-          className={`join-item btn btn-dash btn-accent ${page === currentPage ? 'btn-active' : ''}`}
+          className={`join-item btn btn-dash btn-secondary ${page === currentPage ? 'btn-active' : ''}`}
         >
           {page}
         </button>
       ))}
       {end < totalPages && (
-        <button className="join-item btn btn-dash btn-accent" onClick={nextBatchPage}>
+        <button className="join-item btn btn-dash btn-secondary" onClick={nextBatchPage}>
           »
         </button>
       )}
