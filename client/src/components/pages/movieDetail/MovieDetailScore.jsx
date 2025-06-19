@@ -4,11 +4,9 @@ import { useGetUserFilmFlagQuery, useSendFilmsMutation} from '../../services/fil
 const MovieDetailScore = ({filmId}) => {
 
   const [send] = useSendFilmsMutation();
-  const { data : dataFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(filmId);
+  const { data : dataFlag, isSuccess: isSuccessFlag, isLoading } = useGetUserFilmFlagQuery(filmId);
 
   const [rate, setRate] = useState(0);
-
-  console.log(dataFlag)
 
   useEffect(() => {
     if (isSuccessFlag && dataFlag.rating != null) {
@@ -28,6 +26,8 @@ const MovieDetailScore = ({filmId}) => {
       console.error('Ошибка при отправке рейтинга:', error);
     }
   };
+
+  if (isLoading) return <div>is Loading...</div>
 
   return (
     <div className="rating rating-lg rating-half">

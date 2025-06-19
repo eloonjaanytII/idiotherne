@@ -11,7 +11,7 @@ const Navbar = () => {
   const userId = localStorage.getItem('userId')
 
   const handlerLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     navigate('/authorization/register');
   } 
 

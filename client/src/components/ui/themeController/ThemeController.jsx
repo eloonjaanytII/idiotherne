@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
 
 const ThemeController = () => {
-  const [isDark, setIsDark] = useState(
-    localStorage.getItem("isDark") === "true"
-  );
+
+  const [isDark, setIsDark] = useState(localStorage.getItem("isDark") === "true");
+
   useEffect(() => {
-    localStorage.setItem("isDark", isDark);
+
+    localStorage.setItem("isDark", String(isDark));
+    const newTheme = isDark ? "my_abyss" : "caramellatte";
+    document.documentElement.setAttribute("data-theme", newTheme);
+
   }, [isDark]);
-  const handleChange = () => {
-    setIsDark(!isDark);
-  };
+
+  const handleChange = () => setIsDark(!isDark);
+
+
   return (
     <label className="swap swap-rotate">
         <input
           type="checkbox"
           className="theme-controller"
-          value="caramellatte"
           onChange={handleChange}
           checked={isDark}
         />

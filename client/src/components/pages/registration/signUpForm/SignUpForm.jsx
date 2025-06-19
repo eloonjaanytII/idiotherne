@@ -55,20 +55,20 @@ const SignUpForm = ({handlerSubmit, registerError, step, setStep, totem, setTote
         {step === 1 && 
           <div className='flex flex-col gap-5 h-[90%]'>
               <div className='text-center'><h2>Укажите свой пол:</h2></div>
-              <div className='flex w-[70%] gap m-auto bg-accent rounded-md'>
+              <div className='flex w-[80%] gap-8 m-auto'>
                 <button type="button"
-                  className={`w-1/2 p-5 btn ${gender === 'female' ? `btn-outline text-white` : `btn-ghost`}`}
+                  className={`w-1/2 p-5 btn ${gender === 'female' ? `btn-outline text-white` : `btn-dash`}`}
                   onClick={() => setGender('female')}>
                   Женский
                 </button>
                 <button type="button"
-                  className={`w-1/2 p-5 btn ${gender === 'male' ? `btn-outline text-white` : `btn-ghost`}`}
+                  className={`w-1/2 p-5 btn ${gender === 'male' ? `btn-outline text-white` : `btn-dash`}`}
                   onClick={() => setGender('male')}>
                   Мужской
                 </button>
               </div>
               <div className='text-center'><h2>Выберите своё тотемное животное:</h2></div>
-              <div className="flex flex-wrap gap-4 mt-4">
+              <div className="flex flex-wrap gap-4 justify-center">
                 {TOTEMS.map(({ key, label }) => (
                   <div
                     key={key}

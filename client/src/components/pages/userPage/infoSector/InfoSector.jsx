@@ -6,8 +6,6 @@ const InfoSector = ({userData, isUserDataLoading}) => {
   const [send] = useChangeStatusMutation()
   const [status, setStatus] = useState('')
 
-  console.log(userData.status)
-
   useEffect(() => {
     if (!isUserDataLoading && userData.status) {
       setStatus(userData.status)

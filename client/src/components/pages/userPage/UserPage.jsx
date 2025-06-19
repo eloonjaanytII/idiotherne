@@ -5,6 +5,7 @@ import {useGetUserFilmsQuery } from '../../services/films';
 import UserStatistics from './statisticsSector/UserStatistics';
 import InfoSector from './infoSector/InfoSector';
 import { useUserDataQuery } from '../../services/users';
+import { useEffect } from 'react';
 
 const UserPage = () => {
 
@@ -14,8 +15,12 @@ const UserPage = () => {
   const { data: userData, isLoading: isUserDataLoading} = useUserDataQuery(paramsId);
   const { data: userFilms, isLoading: isFilmsLoading} = useGetUserFilmsQuery(paramsId);
   
+  useEffect(() => {
+
+  }, [currentUser, userData,userFilms])
+
   if (isUserLoading || isFilmsLoading || !userFilms || isUserDataLoading || !userData) return <div>is Loading...</div>
-  
+
   const isOwner = String(paramsId) === String(currentUser?.userId);
 
   return (

@@ -19,63 +19,75 @@ import { GlobalMap } from './components/pages/globalMap/GlobalMap';
 
 
 const App = () => {
+
+  const topListRoutes = [
+  ...TOP_LISTS.map(elem => ({
+    path: elem.url,
+    element: <MovieListTop />
+  })),
+  ...TOP_LISTS.map(elem => ({
+    path: `${elem.url}/:filmId`,
+    element: <MovieDetail />
+  })),
+];
+
+
   const router = createBrowserRouter([
     {
-      path: '/', element: <Layout />,
+      path: '/',
+      element: <Layout />,
       children: [
         {
-          path: '', 
+          path: '',
           element: <Movies />
         },
+        ...topListRoutes,
         {
+          path: 'movies/:filmId',
+          element: <MovieDetail />
+        },
+        {
+          path: 'users-list',
+          element: <UsersList />
+        },
+        {
+          path: 'actor/:id',
+          element: <ActorDetail />
+        },
+         {
           element: <PrivateRouter />,
           children: [
-            ...TOP_LISTS.map(elem => ({
-            path: elem.url,
-            element: <MovieListTop />
-            })),
-            ...TOP_LISTS.map(item => ({
-            path: `${item.url}/:filmId`,
-            element: <MovieDetail />})),
             {
-              path: 'movies/:filmId', element: <MovieDetail />
-            },
-            {
-              path: 'users-list', 
-              element: <UsersList />
-            },
-            {
-              path: 'user/:id', 
+              path: 'user/:id',
               element: <UserPage />
-            },
-            {
-              path: 'actor/:id', 
-              element: <ActorDetail />
             },
           ]
         },
-      ]
+      ],
     },
     {
       path: '/authorization',
       element: <PublicRouter />,
       children: [
-        {path: 'register', 
-         element: 
-         <Suspense fallback={<div>isLoading...</div>}>
-           <Registration />
-         </Suspense>
-         },
+        {
+          path: 'register',
+          element: (
+            <Suspense fallback={<div>isLoading...</div>}>
+              <Registration />
+            </Suspense>
+          )
+        },
       ]
     },
     {
-              path: 'global-map', 
-              element: <GlobalMap />
-            },
+      path: 'global-map',
+      element: <GlobalMap />
+    },
     {
-      path: '*', element: <div>Not found error</div>
+      path: '*',
+      element: <div>Not found error</div>
     }
-  ])
+  ]);
   return (
     <AuthProvider>
       <RouterProvider router={router} />
