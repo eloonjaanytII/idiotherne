@@ -41,14 +41,7 @@ const App = () => {
           path: '',
           element: <Movies />
         },
-         {
-          element: <PrivateRouter />,
-          children: [
-            {
-              path: 'user/:id',
-              element: <UserPage />
-            },
-            ...topListRoutes,
+        ...topListRoutes,
         {
           path: 'movies/:filmId',
           element: <MovieDetail />
@@ -61,6 +54,13 @@ const App = () => {
           path: 'actor/:id',
           element: <ActorDetail />
         },
+         {
+          element: <PrivateRouter />,
+          children: [
+            {
+              path: 'user/:id',
+              element: <UserPage />
+            },
           ]
         },
       ],
