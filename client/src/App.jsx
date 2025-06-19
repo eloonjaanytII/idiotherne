@@ -41,25 +41,25 @@ const App = () => {
           path: '',
           element: <Movies />
         },
-        ...topListRoutes,
         {
-          path: 'movies/:filmId',
-          element: <MovieDetail />
-        },
-        {
-          path: 'users-list',
-          element: <UsersList />
-        },
-        {
-          path: 'actor/:id',
-          element: <ActorDetail />
-        },
-         {
           element: <PrivateRouter />,
           children: [
             {
               path: 'user/:id',
               element: <UserPage />
+            },
+            ...topListRoutes,
+            {
+              path: 'movies/:filmId',
+              element: <MovieDetail />
+            },
+            {
+              path: 'users-list',
+              element: <UsersList />
+            },
+            {
+              path: 'actor/:id',
+              element: <ActorDetail />
             },
           ]
         },

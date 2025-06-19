@@ -19,7 +19,7 @@ const MovieDetail = () => {
 
   const { data: filmDetail, error: filmDetailError, isLoading: isFilmDetailLoading} = useGetFilmQuery(filmId);
   const { data: staff, error: staffError, isLoading: isStaffLoading} = useGetStaffQuery(filmId);
-  const { data : dataFlag, isSuccess: isSuccessFlag, isLoading: isFlagLoading } = useGetUserFilmFlagQuery(filmId);
+  const { data : dataFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(filmId);
   const { data: movieReviews, isLoading: isLoadingReviews} = useGetMovieReviewsQuery(filmId)
 
   const [flags, setFlags] = useState({isWatched: false, isFavorite: false})
@@ -47,9 +47,8 @@ const MovieDetail = () => {
       console.error(e)
     }};
 
-  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isFlagLoading) return <div>Is Loading...</div>
+  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews) return <div>Is Loading...</div>
   if (filmDetailError || staffError) return <ErrorMessage />
-  if (!filmDetail || !staff || !movieReviews) return <ErrorMessage />;
 
   return (
     <div className='m-auto w-[80vw] mt-10'>
@@ -68,21 +67,8 @@ const MovieDetail = () => {
           <div className="font-jura tracking-tighter text-xl mb-3">
             { filmDetail.filmLength !== 0 && `${filmDetail.filmLength} мин.`}
           </div>
-          {
-            (!flags || !dataFlag || !isSuccessFlag) 
-              ? <div></div> 
-              : (
-                  <>
-                    <MovieFlags flags={flags} handleToggle={handleToggle}/>
-                    <MovieDetailScore 
-                      filmDetail={filmDetail} 
-                      filmId={filmId} 
-                      dataFlag={dataFlag} 
-                      isSuccessFlag={isSuccessFlag}
-                    />
-                  </>
-                )
-          }
+          <MovieFlags flags={flags} handleToggle={handleToggle}/>
+          <MovieDetailScore filmDetail={filmDetail} filmId={filmId} dataFlag={dataFlag} isSuccessFlag={isSuccessFlag}/>
         </div>
         <MovieInfo filmDetail={filmDetail} staff={staff}/>
       </div>
