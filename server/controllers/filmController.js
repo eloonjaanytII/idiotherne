@@ -2,7 +2,7 @@ const { UserFilms } = require("../models");
 const { Film } = require("../models");
 const { Op } = require("sequelize");
 
-const getFilmOrFetch = require("../services/getFilmorFetch");
+const getFilmOrFetch = require("../services/getFilmOrFetch.js");
 
 
 const updateFilmFlags = async (req, res) => {
