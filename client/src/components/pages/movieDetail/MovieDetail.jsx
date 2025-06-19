@@ -19,7 +19,7 @@ const MovieDetail = () => {
 
   const { data: filmDetail, error: filmDetailError, isLoading: isFilmDetailLoading} = useGetFilmQuery(filmId);
   const { data: staff, error: staffError, isLoading: isStaffLoading} = useGetStaffQuery(filmId);
-  const { data : dataFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(filmId);
+  const { data : dataFlag, isSuccess: isSuccessFlag, isLoading: isFlagLoading } = useGetUserFilmFlagQuery(filmId);
   const { data: movieReviews, isLoading: isLoadingReviews} = useGetMovieReviewsQuery(filmId)
 
   const [flags, setFlags] = useState({isWatched: false, isFavorite: false})
@@ -47,7 +47,7 @@ const MovieDetail = () => {
       console.error(e)
     }};
 
-  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews) return <div>Is Loading...</div>
+  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isFlagLoading) return <div>Is Loading...</div>
   if (filmDetailError || staffError) return <ErrorMessage />
 
   return (

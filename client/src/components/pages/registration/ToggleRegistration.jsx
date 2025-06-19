@@ -4,7 +4,7 @@ const ToggleRegistration = ({mode, setMode}) => {
   return (
     <div className='flex w-[70%] gap mb-15 m-auto bg-teal-900 rounded-md'>
             <button 
-              className={`w-1/2 p-5 btn hover:bg-teal-800 ${mode === 'login' ? `btn-outline btn-orange-200 text-orange-200` : `btn-ghost`}`}
+              className={`w-1/2 p-5 btn hover:bg-accent ${mode === 'login' ? `btn-outline btn-orange-200 text-orange-200` : `btn-ghost`}`}
               onClick={() => setMode('login')}>
               Валидация
             </button>
