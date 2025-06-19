@@ -68,8 +68,21 @@ const MovieDetail = () => {
           <div className="font-jura tracking-tighter text-xl mb-3">
             { filmDetail.filmLength !== 0 && `${filmDetail.filmLength} мин.`}
           </div>
-          <MovieFlags flags={flags} handleToggle={handleToggle}/>
-          <MovieDetailScore filmDetail={filmDetail} filmId={filmId} dataFlag={dataFlag} isSuccessFlag={isSuccessFlag}/>
+          {
+            (!flags || !dataFlag || !isSuccessFlag) 
+              ? <div></div> 
+              : (
+                  <>
+                    <MovieFlags flags={flags} handleToggle={handleToggle}/>
+                    <MovieDetailScore 
+                      filmDetail={filmDetail} 
+                      filmId={filmId} 
+                      dataFlag={dataFlag} 
+                      isSuccessFlag={isSuccessFlag}
+                    />
+                  </>
+                )
+          }
         </div>
         <MovieInfo filmDetail={filmDetail} staff={staff}/>
       </div>
