@@ -10,8 +10,6 @@ const UsersList = () => {
 
     if (isLoading || !data) return <div>is Loading...</div>
 
-    console.log(data)
-
   return (
     <div>
         <div className='mb-8 text-center text-3xl' >
@@ -22,7 +20,6 @@ const UsersList = () => {
             {data.usersList.map(user => (
                 <Link to={`/user/${user.id}`}>
                 <li key={user.id} className='border-2 rounded-xl border-accent-content p-6 flex flex-col justify-center items-center text-xl hover:bg-accent'>
-                    
                         <img alt="pickha" src={`/animals/${user.avatar}.png`}/>
                     <p>{user.username}</p>
                 </li>

@@ -1,6 +1,5 @@
-import React from 'react'
-
 const ToggleRegistration = ({mode, setMode}) => {
+
   return (
     <div className='flex w-[70%] gap mb-15 m-auto bg-teal-900 rounded-md'>
             <button 

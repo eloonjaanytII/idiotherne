@@ -15,6 +15,8 @@ const Registration = () => {
   const [totem, setTotem] = useState("bird");
   const [gender, setGender] = useState("female")
 
+  document.documentElement.setAttribute("data-theme", "my_abyss");
+
   const [register, { error: registerError, isLoading: registerLoading }] = useRegisterMutation();
   const [login, { error: loginError, isLoading: loginLoading }] = useLoginMutation();
 
