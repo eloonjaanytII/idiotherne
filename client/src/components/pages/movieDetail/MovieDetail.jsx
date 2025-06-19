@@ -49,6 +49,7 @@ const MovieDetail = () => {
 
   if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isFlagLoading) return <div>Is Loading...</div>
   if (filmDetailError || staffError) return <ErrorMessage />
+  if (!filmDetail || !staff || !movieReviews) return <ErrorMessage />;
 
   return (
     <div className='m-auto w-[80vw] mt-10'>
