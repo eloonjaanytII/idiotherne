@@ -16,10 +16,10 @@ const app = express();
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json())
 
-app.use('/auth', authRouter)
-app.use('/review', reviewRouter)
-app.use('/users', usersRouter)
-app.use('/films', filmsRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/review', reviewRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/films', filmsRouter)
 
 
 app.use(errorHandler)
