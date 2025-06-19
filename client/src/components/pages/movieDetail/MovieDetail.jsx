@@ -68,7 +68,14 @@ const MovieDetail = () => {
             { filmDetail.filmLength !== 0 && `${filmDetail.filmLength} мин.`}
           </div>
           <MovieFlags flags={flags} handleToggle={handleToggle}/>
-          <MovieDetailScore filmDetail={filmDetail} filmId={filmId} dataFlag={dataFlag} isSuccessFlag={isSuccessFlag}/>
+          {isSuccessFlag && dataFlag && (
+            <MovieDetailScore
+              filmDetail={filmDetail}
+              filmId={filmId}
+              dataFlag={dataFlag}
+              isSuccessFlag={isSuccessFlag}
+            />
+          )}
         </div>
         <MovieInfo filmDetail={filmDetail} staff={staff}/>
       </div>
