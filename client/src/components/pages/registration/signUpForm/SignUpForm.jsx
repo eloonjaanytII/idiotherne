@@ -1,6 +1,6 @@
 
 import {useForm} from 'react-hook-form';
-import { TOTEMS } from '../../../../icons';
+import { TOTEMS } from '../../../ui/icons';
 import { Tooltip } from 'react-tooltip';
 
 const SignUpForm = ({handlerSubmit, registerError, step, setStep, totem, setTotem, gender, setGender}) => {

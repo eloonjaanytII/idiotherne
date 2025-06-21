@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../features/authSlice';
+import { setCredentials } from '../../store/features/authSlice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();

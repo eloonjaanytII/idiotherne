@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useGetFilmsCollectionsQuery, useGetFilmsQuery, useGetGenresAndCountriesQuery } from '../../services/kinopoisk'
 import {useLocation } from 'react-router-dom'
 import { TOP_LISTS } from '../../../constants'
 import MovieList from '../../ui/movieList/MovieList'
 import ErrorMessage from '../../ui/errorMessage/ErrorMessage'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeTitle } from '../../features/navbarTitleSlice'
 import SelectMovie from '../../ui/selectMovie/SelectMovie'
-import { resetFilters, setCountry, setGenre, setOrder, setYear } from '../../features/currentMovieSlice'
+import { resetFilters, setCountry, setGenre, setOrder, setYear } from '../../store/features/currentMovieSlice'
 
 const MovieListTop = () => {
 
@@ -15,7 +14,6 @@ const MovieListTop = () => {
 
   const {countries, genres, order, yearFrom, yearTo} = useSelector( state => state.currentMovie)
   
-
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -47,10 +45,8 @@ const MovieListTop = () => {
   useEffect(() => {
 
     setCurrentPage(1);
-    dispatch(changeTitle(movieType.title || ''))
 
     return () => {
-      dispatch(changeTitle(''))
       dispatch(resetFilters())
     }
   }, [dispatch, movieType])

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FilmData, UserFilmFlags, FilmMessageResponse, UserFilmWithScore } from './types/films';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -15,7 +16,7 @@ export const filmsApi = createApi({
     },
   }),
   endpoints: builder => ({
-    sendFilms: builder.mutation({
+    sendFilms: builder.mutation<FilmMessageResponse, Omit<UserFilmFlags, "userId" | "createdAt" | "updatedAt">>({
       query: body => ({
         url: `/`,
         method: "PUT",
@@ -23,26 +24,25 @@ export const filmsApi = createApi({
       })
     }),
 
-    getFilm: builder.query({
+    getFilm: builder.query<FilmData, number>({
       query: (kinopoiskId) => `/film/${kinopoiskId}`
     }),
 
-    getUserFilms: builder.query({
+    getUserFilms: builder.query<FilmData[], number>({
       query: (userId) => `/user-films/${userId}`
     }),
 
-    getUserFilmFlag: builder.query({
+    getUserFilmFlag: builder.query<UserFilmFlags, number>({
       query: (kinopoiskId) => `/film-flag/${kinopoiskId}`
     }),
 
-    getUserFilmWithScores: builder.query({
+    getUserFilmWithScores: builder.query<UserFilmWithScore[], number>({
       query: (userId) => `/film-score/${userId}`
     }),
 
-    getUserFilmWithFavorite: builder.query({
+    getUserFilmWithFavorite: builder.query<FilmData[], number>({
       query: (userId) => `/film-favorite/${userId}`
     })
-
 
   }),
 });

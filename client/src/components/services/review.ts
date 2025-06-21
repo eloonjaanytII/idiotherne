@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { GetReviewFilmBodyResponse, GetUserReviewsResponse, ReviewBody, ReviewResponse } from './types/review';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -15,7 +16,7 @@ export const reviewApi = createApi({
     },
   }),
   endpoints: builder => ({
-    sendReview: builder.mutation({
+    sendReview: builder.mutation<ReviewResponse, Omit<ReviewBody, "userId" | "createdAt" | "updatedAt">>({
       query: body => ({
         url: `/`,
         method: "POST",
@@ -23,11 +24,11 @@ export const reviewApi = createApi({
       })
     }),
 
-    getUserReview: builder.query({  
+    getUserReview: builder.query<GetUserReviewsResponse, number>({  
         query: (userId) => `/user-review/${userId}`
     }),
 
-    getMovieReviews: builder.query({  
+    getMovieReviews: builder.query<GetReviewFilmBodyResponse, number>({  
         query: (filmId) => `/movie-review/${filmId}`
     }),
 

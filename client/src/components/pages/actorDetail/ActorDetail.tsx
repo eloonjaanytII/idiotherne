@@ -1,19 +1,21 @@
-import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useGetActorDetailQuery } from '../../services/kinopoisk';
+import ErrorMessage from '../../ui/errorMessage/ErrorMessage';
+
+type Params = {
+  id: string;
+};
 
 const ActorDetail = () => {
 
-  const {id} = useParams();
+  const {id} = useParams<Params>();
 
-  const {data, isLoading, isSuccess, error} = useGetActorDetailQuery(id);
+  const {data, isLoading, isSuccess, error} = useGetActorDetailQuery(id!);
 
   if (isLoading || !isSuccess) return <div>Is Loading...</div>
   if (error) return <ErrorMessage />
 
   const filteredFilms = data.films.filter((film, index, self) =>index === self.findIndex(f => f.filmId === film.filmId)).filter(film => film.nameRu)
-
-  console.log(data)
 
   return (
     <div className='w-full grid grid-cols-1 md:grid-cols-3 justify-center items-center'>

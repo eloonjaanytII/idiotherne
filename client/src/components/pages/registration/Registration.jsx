@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLoginMutation, useRegisterMutation } from '../../services/auth';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../features/authSlice';
+import { setCredentials } from '../../store/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import SignInForm  from './signInForm/SignInForm';
 import SignUpForm from './signUpForm/SignUpForm';

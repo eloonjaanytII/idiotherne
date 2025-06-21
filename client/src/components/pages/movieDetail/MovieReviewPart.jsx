@@ -15,9 +15,9 @@ const MovieReviewPart = ({movieReviews}) => {
                 <p>{r.content}</p>
               </div>
               <div>
-                <p className='text-2xl'>{r.User.username}</p>
+                <p className='text-2xl'>{r.username}</p>
                 <Link to={`/user/${r.userId}`}>
-                  <img alt="pickha" src={`/animals/${r.User.avatar}.png`}/>
+                  <img alt="pickha" src={`/animals/${r.avatar}.png`}/>
                 </Link>  
               </div>
             </div>

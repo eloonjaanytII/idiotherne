@@ -5,7 +5,7 @@ import './App.css'
 
 const Movies = lazy(() => import('./components/pages/movies/Movies'));
 const MovieDetail = lazy(() => import('./components/pages/movieDetail/MovieDetail'));
-const ActorDetail = lazy(() => import('./components/pages/actorDetail/ActorDetail'));
+const ActorDetail = lazy(() => import('./components/pages/actorDetail/ActorDetail.tsx'));
 const MovieListTop = lazy(() => import('./components/pages/movieListTop/MovieListTop'));
 const Registration = lazy(() => import('./components/pages/registration/Registration'));
 const UserPage = lazy(() => import('./components/pages/userPage/UserPage'));

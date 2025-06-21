@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Actor, CountryAndGenres, FilmFullDetail, FilmsCollectionsResponse, getFilmsQuery, RawFiltersResponse, StaffPerson } from './types/kinopoisk';
 
 const kinopoiskApiKey = import.meta.env.VITE_KINOPOISK_KEY;
 
-const excludeGenres = [
+const excludeGenres:string[] = [
   "",
   "ток-шоу",
   "церемония",
-]
+] 
 
 export const kinopoiskApi = createApi({
   reducerPath: 'kinopoiskApi',
@@ -19,12 +20,12 @@ export const kinopoiskApi = createApi({
   }),
   endpoints: builder => ({
 
-    getFilmsCollections: builder.query({
+    getFilmsCollections: builder.query<FilmsCollectionsResponse, { type:string, page:number }>({
       query: ({ type, page }) =>
         `v2.2/films/collections?type=${type}&page=${page}`,
     }),
 
-    getFilms: builder.query({
+    getFilms: builder.query<FilmsCollectionsResponse, getFilmsQuery>({
       query: ({
         countries = "",
         genres = "",
@@ -38,28 +39,23 @@ export const kinopoiskApi = createApi({
         `v2.2/films?countries=${countries}&genres=${genres}&order=${order}&type=${type}&yearFrom=${yearFrom}&yearTo=${yearTo}&page=${page}&keyword=${keyword}`
     }),
 
-    getGenresAndCountries: builder.query({
+    getGenresAndCountries: builder.query<CountryAndGenres, void>({
       query: () => `v2.2/films/filters`,
-      transformResponse: response => ({
+      transformResponse: (response: RawFiltersResponse) : CountryAndGenres => ({
         ...response,
         genres: response.genres.filter(({genre}) => !excludeGenres.includes(genre))
       })
     }),
 
-    getFilmDetail: builder.query({
+    getFilmDetail: builder.query<FilmFullDetail, number>({
       query: id => `v2.2/films/${id}`
     }),
 
-    getSequelsAndPrequels: builder.query({
-      query: id => `v2.1/films/${id}/sequels_and_prequels`,
-      transformResponse: response => response.map(el => ({...el, kinopoiskId: el.filmdId}))
-    }),
-
-    getStaff: builder.query({
+    getStaff: builder.query<StaffPerson[], number>({
       query: id => `v1/staff?filmId=${id}`
     }),
 
-    getActorDetail: builder.query({
+    getActorDetail: builder.query<Actor, number>({
       query: id => `v1/staff/${id}`
     })
 
@@ -71,8 +67,6 @@ export const { useGetFilmsCollectionsQuery,
                useGetFilmsQuery, 
                useGetGenresAndCountriesQuery,
                useGetFilmDetailQuery,
-               useGetSequelsAndPrequelsQuery,
                useGetStaffQuery,
                useGetActorDetailQuery,
-               useGetFilmsByKeywordQuery,
                } = kinopoiskApi;

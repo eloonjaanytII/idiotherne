@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface UserSlice {
+  tabChoice: string;
+}
+
+const initialState: UserSlice = {
   tabChoice: "review",
 };
 
@@ -8,7 +12,7 @@ export const userPageSlice = createSlice({
   name: 'userPageSlice',
   initialState,
   reducers: {
-    saveTabChoice: (state, action) => {
+    saveTabChoice: (state, action: PayloadAction<string>) => {
       state.tabChoice = action.payload;
     },
   },

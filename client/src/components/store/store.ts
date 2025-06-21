@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import currentMovieReducer from '../features/currentMovieSlice';
-import navbarTitleReducer from '../features/navbarTitleSlice';
-import searchQueryReducer from '../features/searchQuerySlice'
-import authSliceReducer from '../features/authSlice';
-import userPageReducer from '../features/userPageSlice';
-
 import { setupListeners } from '@reduxjs/toolkit/query';
+
+import currentMovieReducer from './features/currentMovieSlice';
+import authSliceReducer from './features/authSlice';
+import userPageReducer from './features/userPageSlice';
+
 import { kinopoiskApi } from '../services/kinopoisk';
 import { authApi } from '../services/auth';
 import { reviewApi } from '../services/review';
@@ -15,8 +14,6 @@ import { filmsApi } from "../services/films";
 export const store = configureStore({
   reducer: {
     currentMovie: currentMovieReducer,
-    navbarTitle: navbarTitleReducer,
-    searchQuery: searchQueryReducer,
     authSlice: authSliceReducer,
     userPageSlice: userPageReducer,
     
@@ -37,3 +34,6 @@ export const store = configureStore({
 });
 
 setupListeners(store.dispatch);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

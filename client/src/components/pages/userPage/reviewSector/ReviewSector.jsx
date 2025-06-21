@@ -2,7 +2,7 @@ import { useReviewSector } from '../../../hooks/useReviewSector';
 import {useGetUserReviewQuery } from '../../../services/review'
 
 import { useSelector, useDispatch } from 'react-redux'
-import {saveTabChoice} from "../../../features/userPageSlice"
+import {saveTabChoice} from "../../../store/features/userPageSlice"
 
 import ReviewForm from './reviewForm/ReviewForm';
 import ReviewList from './reviewList/ReviewList';
