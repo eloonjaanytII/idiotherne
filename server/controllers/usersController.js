@@ -18,7 +18,8 @@ const getUsersList = async (req, res, next) => {
         id: user.id,
         username: user.username,
         avatar: user.avatar,
-        status: user.status
+        gender: user.gender,
+        status: user.status,
     }))
 
 

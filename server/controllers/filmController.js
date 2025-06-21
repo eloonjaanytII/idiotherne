@@ -4,7 +4,6 @@ const { Op } = require("sequelize");
 
 const getFilmOrFetch = require("../services/getFilmOrFetch.js");
 
-
 const updateFilmFlags = async (req, res) => {
 
     const {kinopoiskId, isWatched, rating, favorite} = req.body;

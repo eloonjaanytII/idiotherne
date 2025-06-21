@@ -48,9 +48,18 @@ const getMovieReviews = async (req, res) => {
         return res.status(200).json({reviews: []});
     }
 
-    
+        const reviews = checkReview.map(r => ({
+            kinopoiskId: r.kinopoiskId,
+            userId: r.userId,
+            title: r.title,
+            content: r.content,
+            createdAt: r.createdAt,
+            updatedAt: r.updatedAt,
+            avatar: r.User.avatar,
+            username: r.User.username
+        }));
 
-    return res.status(200).json({reviews: checkReview});
+    return res.status(200).json({reviews});
 }
 
 module.exports = {createReview, getUserReview, getMovieReviews};
