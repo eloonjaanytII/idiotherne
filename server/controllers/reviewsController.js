@@ -25,13 +25,13 @@ const getUserReview = async (req, res) => {
     
     const {userId} = req.params;
 
-    const checkReview = await Review.findAll({where: {userId}})
+    const reviews = await Review.findAll({where: {userId}})
 
-    if (!checkReview || checkReview.length === 0) {
-        return res.status(200).json({reviews: []});
+    if (!reviews) {
+        return res.status(200).json([]);
     }
 
-    return res.status(200).json({reviews: checkReview});
+    return res.status(200).json(reviews);
 }
 
 const getMovieReviews = async (req, res) => {
@@ -45,7 +45,7 @@ const getMovieReviews = async (req, res) => {
     });
 
     if (!checkReview || checkReview.length === 0) {
-        return res.status(200).json({reviews: []});
+        return res.status(200).json([]);
     }
 
         const reviews = checkReview.map(r => ({
@@ -59,7 +59,7 @@ const getMovieReviews = async (req, res) => {
             username: r.User.username
         }));
 
-    return res.status(200).json({reviews});
+    return res.status(200).json(reviews);
 }
 
 module.exports = {createReview, getUserReview, getMovieReviews};
