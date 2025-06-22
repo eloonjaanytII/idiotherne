@@ -46,7 +46,8 @@ const getUserFilmFlag = async (req, res, next) => {
         next(new Error("Какие-то проблемы с получением или инициализацией флажков юзера"))
     }
 
-    return res.status(200).json(userFlags)
+    const { favorite, isWatched, rating } = userFlags;
+    return res.status(200).json({ favorite, isWatched, rating })
 }
 
 const getUserFilmWithScores = async (req, res, next) => {
