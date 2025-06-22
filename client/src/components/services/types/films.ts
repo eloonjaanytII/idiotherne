@@ -18,13 +18,10 @@ export interface FilmData {
 }
 
 export interface UserFilmFlags {
-    kinopoiskId : number;
-    userId: number;
-    rating: number;
-    isWatched: boolean;
-    favorite: boolean;
-    createdAt: string;
-    updatedAt: string;
+    kinopoiskId: number;
+    rating?: number;
+    isWatched?: boolean;
+    favorite?: boolean;
 }
 
 export interface UserFilmWithScore {

@@ -2,9 +2,9 @@ const ReviewList = ({data, isOwner}) => {
 
   return (
     <div>
-        {data.reviews.length !== 0 &&
+        {data.length !== 0 &&
         <ul className="text-center flex flex-col gap-2">
-            {data.reviews.map((item, idx) => (
+            {data.map((item, idx) => (
                 <li key={item.id} className='border-2 border-accent rounded-xl p-3 min-h-[300px]'>
                     <p>Рецензия № {idx+1}</p>
                     <p className="mb-3">"{item.title}"</p>
@@ -13,12 +13,12 @@ const ReviewList = ({data, isOwner}) => {
             ))}
         </ul>
         }
-        {data.reviews.length === 0 && !isOwner &&
+        {data.length === 0 && !isOwner &&
             <div>
                 <p>У пользователя нет еще рецензий</p>
             </div>
         }
-        {data.reviews.length === 0 && isOwner &&
+        {data.length === 0 && isOwner &&
             <div>
                 <p>Самое время написать рецензию!</p>
             </div>

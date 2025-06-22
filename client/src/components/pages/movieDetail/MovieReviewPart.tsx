@@ -1,9 +1,21 @@
-
 import { Link } from 'react-router-dom'
 
-const MovieReviewPart = ({movieReviews}) => {
+interface MovieReview {
+  avatar: string | null;
+  content: string;
+  kinopoiskId: number;
+  title: string;
+  userId: number;
+  username: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
-  console.log(movieReviews)
+interface MovieReviewProps {
+  movieReviews: MovieReview[]
+}
+
+const MovieReviewPart: React.FC<MovieReviewProps> = ({movieReviews}) => {
 
   return (
     <div className='flex flex-col justify-center items-center w-full'>
@@ -11,8 +23,8 @@ const MovieReviewPart = ({movieReviews}) => {
         <div className='border-2 border-accent rounded-xl p-2 w-[90%] flex flex-col gap-3'>
             {movieReviews.length === 0 
           ? <div>У фильма ещё нет рецензий. <br/> Вы можете написать её в своём профиле!</div>
-          : movieReviews.map(r => (
-            <div key={r.kinopoiskId} className='flex gap-3 justify-between text-center p-4'>
+          : movieReviews.map((r : MovieReview) => (
+            <div key={r.userId} className='flex gap-3 justify-between text-center p-4'>
               <div className='flex flex-col justify-start gap-4'>
                 <p className='text-2xl'>{r.title}</p>
                 <p>{r.content}</p>

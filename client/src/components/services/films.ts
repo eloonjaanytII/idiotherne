@@ -16,7 +16,7 @@ export const filmsApi = createApi({
     },
   }),
   endpoints: builder => ({
-    sendFilms: builder.mutation<FilmMessageResponse, Omit<UserFilmFlags, "userId" | "createdAt" | "updatedAt">>({
+    sendFilms: builder.mutation<FilmMessageResponse, UserFilmFlags>({
       query: body => ({
         url: `/`,
         method: "PUT",

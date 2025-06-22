@@ -4,7 +4,7 @@ import {TOP_LISTS } from './constants';
 import './App.css'
 
 const Movies = lazy(() => import('./components/pages/movies/Movies'));
-const MovieDetail = lazy(() => import('./components/pages/movieDetail/MovieDetail'));
+const MovieDetail = lazy(() => import('./components/pages/movieDetail/MovieDetail.tsx'));
 const ActorDetail = lazy(() => import('./components/pages/actorDetail/ActorDetail.tsx'));
 const MovieListTop = lazy(() => import('./components/pages/movieListTop/MovieListTop'));
 const Registration = lazy(() => import('./components/pages/registration/Registration'));
