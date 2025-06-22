@@ -1,7 +1,10 @@
-import React from 'react'
+
 import { Link } from 'react-router-dom'
 
 const MovieReviewPart = ({movieReviews}) => {
+
+  console.log(movieReviews)
+
   return (
     <div className='flex flex-col justify-center items-center w-full'>
         <h2 className='text-center font-semibold text-2xl mb-3 mt-3'>Рецензии:</h2>

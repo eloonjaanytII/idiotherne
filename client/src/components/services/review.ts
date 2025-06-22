@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { GetReviewFilmBodyResponse, GetUserReviewsResponse, ReviewBody, ReviewResponse } from './types/review';
+import { ReviewBody, ReviewFilmBody, ReviewResponse } from './types/review';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -24,11 +24,11 @@ export const reviewApi = createApi({
       })
     }),
 
-    getUserReview: builder.query<GetUserReviewsResponse, number>({  
+    getUserReview: builder.query<ReviewBody[], number>({  
         query: (userId) => `/user-review/${userId}`
     }),
 
-    getMovieReviews: builder.query<GetReviewFilmBodyResponse, number>({  
+    getMovieReviews: builder.query<ReviewFilmBody[], number>({  
         query: (filmId) => `/movie-review/${filmId}`
     }),
 
