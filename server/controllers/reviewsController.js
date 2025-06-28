@@ -1,4 +1,5 @@
 const {Review, User} = require('../models/index');
+const createError = require('http-errors');
 
 const createReview = async (req, res, next) => {
 
@@ -8,7 +9,7 @@ const createReview = async (req, res, next) => {
     const checkReview = await Review.findOne({where: {kinopoiskId, userId}})
 
     if (checkReview) {
-        return next(new Error("Рецензия на фильм уже существует"))
+        return next(createError(400, "Рецензия на фильм уже существует"))
     }
     
     await Review.create({
@@ -28,7 +29,7 @@ const getUserReview = async (req, res) => {
     const reviews = await Review.findAll({where: {userId}})
 
     if (!reviews) {
-        return res.status(200).json([]);
+        return next(createError(400, "Рецензии юзера не найдены"))
     }
 
     return res.status(200).json(reviews);
@@ -45,7 +46,7 @@ const getMovieReviews = async (req, res) => {
     });
 
     if (!checkReview || checkReview.length === 0) {
-        return res.status(200).json([]);
+        return next(createError(400, "У фильма ещё нет рецензий"))
     }
 
         const reviews = checkReview.map(r => ({

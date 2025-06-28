@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "allowJs": true,
+    "allowJs": false,
     "noEmit": true,
     "skipLibCheck": true
   },

@@ -82,13 +82,13 @@ export interface FilmsCollectionsResponse {
 }
 
 export interface getFilmsQuery {
-     countries: string;
-     genres: string;
-     order: string;
-     type: string;
-     yearFrom: number | null;
-     yearTo: number | null;
-     page: number | null;
+     countries?: number;
+     genres?: number;
+     order?: string;
+     type?: string;
+     yearFrom?: number | null;
+     yearTo?: number | null;
+     page?: number | null;
      keyword: string,
 }
 

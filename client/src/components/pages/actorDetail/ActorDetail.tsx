@@ -10,7 +10,9 @@ const ActorDetail = () => {
 
   const {id} = useParams<Params>();
 
-  const {data, isLoading, isSuccess, error} = useGetActorDetailQuery(id!);
+  if (!id) return <div>Invalid actor ID</div>;
+
+  const {data, isLoading, isSuccess, error} = useGetActorDetailQuery(Number(id));
 
   if (isLoading || !isSuccess) return <div>Is Loading...</div>
   if (error) return <ErrorMessage />
@@ -20,7 +22,7 @@ const ActorDetail = () => {
   return (
     <div className='w-full grid grid-cols-1 md:grid-cols-3 justify-center items-center'>
       <div className=''>
-        <img src={data.posterUrl} alt="pikcha" className='m-auto'/>
+        <img src={data.posterUrl ?? undefined} alt="pikcha" className='m-auto'/>
       </div>
       <div className='grid grid-rows-6 max-h-[50vh] mt-15 text-lg gap-2 m-auto mb-10 p-2'>
         <div className='grid grid-cols-2'>

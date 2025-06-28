@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MessageResponse, UserData, UserList } from './types/users';
+import {UserData, UserList } from './types/users';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -12,7 +12,7 @@ export const usersApi = createApi({
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }
-      return headers;
+      return headers; 
     },
   }),
   endpoints: builder => ({
@@ -24,15 +24,7 @@ export const usersApi = createApi({
       query: (paramsId) => `/user/${paramsId}`
     }),
 
-    changeStatus: builder.mutation<MessageResponse, { status: string }>({
-      query: ({status}) => ({
-        url: `/status`,
-        method: "PUT",
-        body: status
-      })
-    }),
-    
   }),
 });
 
-export const {useUsersListQuery, useUserDataQuery, useChangeStatusMutation} = usersApi;
+export const {useUsersListQuery, useUserDataQuery} = usersApi;

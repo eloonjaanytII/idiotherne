@@ -27,8 +27,8 @@ export const kinopoiskApi = createApi({
 
     getFilms: builder.query<FilmsCollectionsResponse, getFilmsQuery>({
       query: ({
-        countries = "",
-        genres = "",
+        countries = 1,
+        genres = 1,
         order = "NUM_VOTE",
         type = "FILM",
         yearFrom = 1000,
