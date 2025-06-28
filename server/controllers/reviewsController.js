@@ -22,7 +22,7 @@ const createReview = async (req, res, next) => {
     return res.status(201).json({ message: 'Рецензия опубликована'});
 }
 
-const getUserReview = async (req, res) => {
+const getUserReview = async (req, res, next) => {
     
     const {userId} = req.params;
 
@@ -35,7 +35,7 @@ const getUserReview = async (req, res) => {
     return res.status(200).json(reviews);
 }
 
-const getMovieReviews = async (req, res) => {
+const getMovieReviews = async (req, res, next) => {
     
     const {kinopoiskId} = req.params;
 
