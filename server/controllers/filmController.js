@@ -10,9 +10,11 @@ const updateFilmFlags = async (req, res) => {
     const {kinopoiskId, isWatched, rating, favorite} = req.body;
     const userId = req.user.id;
 
-    await UserFilms.update({isWatched, rating, favorite}, {where : {kinopoiskId, userId}});
+    const [updatedCount] = await UserFilms.update({isWatched, rating, favorite}, {where : {kinopoiskId, userId}});
 
-    return res.status(201).json({ message: 'Фильм сохранён в список'});
+    if (updatedCount === 0) next(createError(404, 'Фильм или запись пользователя не найдены'));
+
+    return res.status(201).json({ message: 'Обновлены флаги фильма'});
 }
 
 const getFilm = async (req, res, next) => {
@@ -20,9 +22,7 @@ const getFilm = async (req, res, next) => {
     const {kinopoiskId} = req.params;
     const film = await getFilmOrFetch(kinopoiskId);
 
-    if (!film) {
-        return next(createError(400, "Фильм не найден"))
-    }
+    if (!film) next(createError(404, "Фильм не найден"));
 
     return res.status(200).json(film);
 }
@@ -33,9 +33,9 @@ const getUserFilmFlag = async (req, res, next) => {
     const {kinopoiskId} = req.params;
     const userId = req.user.id;
 
-     await getFilmOrFetch(kinopoiskId);
+    await getFilmOrFetch(kinopoiskId);
 
-     const [userFlags] = await UserFilms.findOrCreate({
+    const [userFlags] = await UserFilms.findOrCreate({
         where: { kinopoiskId, userId },
         defaults: {
             isWatched : false,
@@ -43,9 +43,6 @@ const getUserFilmFlag = async (req, res, next) => {
             favorite: false
         }
         });
-    if (!userFlags){
-        return next(createError(400, "Какие-то проблемы с получением или инициализацией флажков юзера"))
-    }
 
     const { favorite, isWatched, rating } = userFlags;
     return res.status(200).json({ favorite, isWatched, rating })
@@ -57,16 +54,14 @@ const getUserFilmWithScores = async (req, res, next) => {
 
     const data = await UserFilms.findAll({where: {userId, rating: { [Op.gt]: 0}}})
 
-    if (!data) {
-        return next(createError(400, "У пользователя нет оценённых фильмов"))
-    }
+    if (data.length === 0) res.status(200).json([]);
 
     const kinopoiskIdList = data.filter(el => el.kinopoiskId).map(el => el.kinopoiskId);
 
     const filmList = await Film.findAll({where: {kinopoiskId: kinopoiskIdList}})
 
     if (!filmList) {
-        return next(createError(409,  "Случилась какая-то ошибка с поиском фильмов по оценкам"));
+        return next(createError(400,  "Случилась какая-то ошибка с поиском фильмов по оценкам"));
     }
 
     const filmMap = {}
@@ -89,18 +84,12 @@ const getUserFilmWithFavorite = async (req, res, next) => {
     const {userId} = req.params;
 
     const data = await UserFilms.findAll({where: {userId, favorite : true}})
-
-    if (!data || data.length === 0) {
-        return next(createError(400, "У пользователя нет избранных фильмов"))
-    }
+    if (data.length === 0) res.status(200).json([]);
 
     const kinopoiskIdList = data.filter(el => el.kinopoiskId).map(el => el.kinopoiskId);
 
     const filmList = await Film.findAll({where: {kinopoiskId: kinopoiskIdList}})
-
-    if (!filmList) {
-        return next(createError(400, "Случилась какая-то ошибка с поиском избранных фильмов"))
-    }
+    if (filmList.length === 0) res.status(200).json([]);
 
     return res.status(200).json(filmList)
 }
@@ -113,9 +102,7 @@ const getUserFilms = async (req, res, next) => {
 
     const userChainList = await UserFilms.findAll({where: {userId}})
 
-    if (userChainList.length === 0) {
-        return next(createError(400, "У пользователя нет добавленных фильмов"))
-    }
+    if (userChainList.length === 0) res.status(200).json([]);
 
     const kinopoiskIdList = userChainList.map(el => el.kinopoiskId).filter(Boolean)
     const userFilmList = await Film.findAll({where: {kinopoiskId: kinopoiskIdList}})

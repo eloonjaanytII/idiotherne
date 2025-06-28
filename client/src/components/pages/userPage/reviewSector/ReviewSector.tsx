@@ -14,11 +14,10 @@ interface ReviewSectorProps {
   userId: number;
   userFilms: FilmData[];
   isOwner: boolean;
-  error?: string;
 }
 
 
-const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, error}) => {
+const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms}) => {
 
     const dispatch = useAppDispatch();
     const tabChoice = useAppSelector(state => state.userPageSlice.tabChoice);
@@ -28,7 +27,8 @@ const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, 
 
     const reviewForm = useReviewSector(userId);
       
-    if (reviewForm.isLoading || isLoadingReview) return <div>is Loading...</div>
+    if (reviewForm.isLoading || isLoadingReview || !dataReview) return <div>is Loading...</div>
+
   return (
     <div className="pl-4 pr-4">
       <div className="tabs tabs-lift flex justify-center">
@@ -41,7 +41,8 @@ const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, 
 
           <div className={`tab-content border-base-content rounded-xl p-6 ${tabChoice === "review" ? 'active' : ''}`}>
               {isOwner && <ReviewForm {...reviewForm}/>}
-              {error ? <div className="error-message">{error}</div> : <ReviewList data={dataReview} isOwner={isOwner}/>}
+              {dataReview.length === 0 ? <div className="error-message">Ещё нет написанных рецензий</div> 
+                                      : <ReviewList data={dataReview} isOwner={isOwner}/>}
           </div>
 
         <input type="radio" 
@@ -52,7 +53,7 @@ const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, 
                onChange={() => dispatch(saveTabChoice("scores"))}/>
 
         <div className={`tab-content border-base-content p-6 ${tabChoice === "scores" ? 'active' : ''}`}>
-          {error ? <div className="error-message">{error}</div> : <ScoreList userId={userId}/>}
+          <ScoreList userId={userId}/>
         </div>
 
         <input type="radio" 
@@ -63,7 +64,7 @@ const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, 
                onChange={() => dispatch(saveTabChoice("watched"))}/>
 
         <div className={`tab-content border-base-content p-6 ${tabChoice === "watched" ? 'active' : ''}`}>
-          {error ? <div className="error-message">{error}</div> : <WatchedList userFilms={userFilms}/>}
+          <WatchedList userFilms={userFilms}/>
         </div>
 
         <input type="radio" 
@@ -73,7 +74,7 @@ const ReviewSector:React.FC <ReviewSectorProps> = ({isOwner, userId, userFilms, 
                checked={tabChoice === "favorite"}
                onChange={() => dispatch(saveTabChoice("favorite"))}/>
         <div className={`tab-content border-base-content p-6 ${tabChoice === "favorite" ? 'active' : ''}`}>
-          {error ? <div className="error-message">{error}</div> : <FavoriteList userId={userId}/>}
+          <FavoriteList userId={userId}/>
         </div>
 
       </div>

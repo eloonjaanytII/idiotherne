@@ -13,5 +13,5 @@ export interface MessageResponse {
 export interface UserList {
     usersList: UserData[];
     countUsers: number;
-    message: MessageResponse;
+    message: string;
 }

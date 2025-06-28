@@ -16,11 +16,13 @@ const UserPage: React.FC = () => {
   if (Number.isNaN(paramsId)) return <div>Некорректный ID</div>;
 
   const { data: currentUser, isLoading: isUserLoading} = useCurrentUserQuery();
-  const { data: userData, error: userDataError, isLoading: isUserDataLoading} = useUserDataQuery(paramsId);
-  const { data: userFilms, error: userFilmsError, isLoading: isFilmsLoading} = useGetUserFilmsQuery(paramsId);
+  const { data: userData, isLoading: isUserDataLoading} = useUserDataQuery(paramsId);
+  const { data: userFilms, isLoading: isFilmsLoading} = useGetUserFilmsQuery(paramsId);
 
-  if (isUserLoading || isUserDataLoading || isFilmsLoading) return <div>Loading...</div>;
-  if (!userData || !userFilms) return <div>Данные не найдены</div>;
+  if (isUserLoading) return <div>Профиль валидируется...</div>;
+  if (isUserDataLoading) return <div>Погружается личная информация пользователя...</div>;
+  if (isFilmsLoading) return <div>Подгружается информация о фильмах...</div>;
+  if (!userData || !userFilms) return <div>Данные подгружаются...</div>;
 
   const isOwner = currentUser?.userId === paramsId;
 
@@ -28,10 +30,10 @@ const UserPage: React.FC = () => {
   
     <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh]">
       <div className ="md:border-r-2 flex flex-col p-4 gap-2 md:gap-10">
-        <InfoSector userData = {userData} error={parseErrorMessage(userDataError)}/>
-        <UserStatistics userFilms={userFilms} error={parseErrorMessage(userFilmsError)}/>
+        <InfoSector userData = {userData}/>
+        <UserStatistics userFilms={userFilms}/>
       </div>
-      <ReviewSector isOwner={isOwner} userId = {paramsId} userFilms={userFilms} error={parseErrorMessage(userFilmsError)}/>
+      <ReviewSector isOwner={isOwner} userId = {paramsId} userFilms={userFilms}/>
     </div>
 
   )

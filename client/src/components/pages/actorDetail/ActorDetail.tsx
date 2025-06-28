@@ -12,9 +12,9 @@ const ActorDetail = () => {
 
   if (!id) return <div>Invalid actor ID</div>;
 
-  const {data, isLoading, isSuccess, error} = useGetActorDetailQuery(Number(id));
+  const {data, isLoading, error} = useGetActorDetailQuery(Number(id));
 
-  if (isLoading || !isSuccess) return <div>Is Loading...</div>
+  if (isLoading || !data) return <div>Загрузка информации об актёре...</div>
   if (error) return <ErrorMessage />
 
   const filteredFilms = data.films.filter((film, index, self) =>index === self.findIndex(f => f.filmId === film.filmId)).filter(film => film.nameRu)
