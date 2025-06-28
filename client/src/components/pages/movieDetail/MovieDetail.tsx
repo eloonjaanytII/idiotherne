@@ -22,9 +22,9 @@ const MovieDetail: React.FC = () => {
   const [send] = useSendFilmsMutation();
 
   const { data: filmDetail, error: filmDetailError, isLoading: isFilmDetailLoading} = useGetFilmQuery(kinopoiskId);
-  const { data: staff = [], error: staffError, isLoading: isStaffLoading} = useGetStaffQuery(kinopoiskId);
+  const { data: staff = [], isLoading: isStaffLoading} = useGetStaffQuery(kinopoiskId);
   const { data: dataFlag, error: dataError, isLoading: isLoadingFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(kinopoiskId);
-  const { data: movieReviews = [], error: reviewsError, isLoading: isLoadingReviews} = useGetMovieReviewsQuery(kinopoiskId)
+  const { data: movieReviews = [], isLoading: isLoadingReviews} = useGetMovieReviewsQuery(kinopoiskId)
 
   const [flags, setFlag] = useState<Flags>({isWatched: false, favorite: false})
   const [rate, setRate] = useState<number>(0)
