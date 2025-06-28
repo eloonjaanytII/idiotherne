@@ -12,11 +12,9 @@ interface InfoSectorProps {
 }
 
 
-const InfoSector:React.FC <InfoSectorProps> = ({userData, error}) => {
+const InfoSector:React.FC <InfoSectorProps> = ({userData}) => {
 
   const genderFlag = userData.gender === "female";
-
-  if (error) <div>{error}</div>
   
   return (
     <div className="grid grid-rows-2 md:grid-rows-1 md:grid-cols-[20%_80%] gap-2 text-center">

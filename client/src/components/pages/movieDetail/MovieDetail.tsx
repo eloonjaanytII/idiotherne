@@ -68,9 +68,13 @@ const MovieDetail: React.FC = () => {
 
   }
 
-  if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isLoadingFlag) return <div>Is Loading...</div>
+  if (isFilmDetailLoading) return <div>Загрузка данных о фильме...</div>
+  if (isStaffLoading) return <div>Загрузка данных об актёрах....</div>
+  if (isLoadingFlag) return <div>Загрузка данных о флажках...</div>
+  if (isLoadingReviews) return <div>Загрузка рецензий...</div>
+
   if (filmDetailError || dataError) return <ErrorMessage />
-  if (!filmDetail) return <div>Films isnt exist...</div>
+  if (!filmDetail) return <div>Фильма не существует...</div>
 
   return (
     <div className='m-auto w-[80vw] mt-10'>

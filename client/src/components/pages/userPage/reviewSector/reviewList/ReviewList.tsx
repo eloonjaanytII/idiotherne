@@ -2,15 +2,14 @@ import { ReviewBody } from "../../../../services/types/review";
 
 interface ReviewListProps {
     isOwner: boolean;
-    data: ReviewBody[] | undefined;
+    data: ReviewBody[];
 }
-
 
 const ReviewList: React.FC <ReviewListProps> = ({data, isOwner}) => {
 
   return (
     <div>
-        {data &&
+        {data.length !== 0 &&
         <ul className="text-center flex flex-col gap-2">
             {data.map((item, idx) => (
                 <li key={item.kinopoiskId} className='border-2 border-accent rounded-xl p-3 min-h-[300px]'>
@@ -21,12 +20,12 @@ const ReviewList: React.FC <ReviewListProps> = ({data, isOwner}) => {
             ))}
         </ul>
         }
-        {!data && !isOwner &&
+        {data.length === 0 && isOwner &&
             <div>
                 <p>У пользователя нет еще рецензий</p>
             </div>
         }
-        {!data && isOwner &&
+        {data.length === 0 && isOwner &&
             <div>
                 <p>Самое время написать рецензию!</p>
             </div>

@@ -11,7 +11,7 @@ async function getFilmOrFetch(kinopoiskId) {
         const data = response.data;
 
         if (!data || !data.kinopoiskId || !data.nameRu) {
-        throw new Error("Некорректные данные от внешнего API");
+            throw new Error("Некорректные данные от внешнего API");
         }
 
         const [newFilm] = await Film.findOrCreate({
