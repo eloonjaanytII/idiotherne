@@ -22,9 +22,9 @@ const MovieDetail: React.FC = () => {
   const [send] = useSendFilmsMutation();
 
   const { data: filmDetail, error: filmDetailError, isLoading: isFilmDetailLoading} = useGetFilmQuery(kinopoiskId);
-  const { data: staff = [], error: staffError, isLoading: isStaffLoading} = useGetStaffQuery(kinopoiskId);
+  const { data: staff = [], isLoading: isStaffLoading} = useGetStaffQuery(kinopoiskId);
   const { data: dataFlag, error: dataError, isLoading: isLoadingFlag, isSuccess: isSuccessFlag } = useGetUserFilmFlagQuery(kinopoiskId);
-  const { data: movieReviews = [], error: reviewsError, isLoading: isLoadingReviews} = useGetMovieReviewsQuery(kinopoiskId)
+  const { data: movieReviews = [], isLoading: isLoadingReviews} = useGetMovieReviewsQuery(kinopoiskId)
 
   const [flags, setFlag] = useState<Flags>({isWatched: false, favorite: false})
   const [rate, setRate] = useState<number>(0)
@@ -69,7 +69,7 @@ const MovieDetail: React.FC = () => {
   }
 
   if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isLoadingFlag) return <div>Is Loading...</div>
-  if (filmDetailError || staffError || dataError || reviewsError) return <ErrorMessage />
+  if (filmDetailError || dataError) return <ErrorMessage />
   if (!filmDetail) return <div>Films isnt exist...</div>
 
   return (
