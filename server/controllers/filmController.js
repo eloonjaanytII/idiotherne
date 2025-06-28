@@ -1,6 +1,7 @@
 const { UserFilms } = require("../models");
 const { Film } = require("../models");
 const { Op } = require("sequelize");
+const createError = require('http-errors');
 
 const getFilmOrFetch = require("../services/getFilmOrFetch.js");
 
@@ -20,7 +21,7 @@ const getFilm = async (req, res, next) => {
     const film = await getFilmOrFetch(kinopoiskId);
 
     if (!film) {
-        return next(new Error("Фильм не найден"))
+        return next(createError(400, "Фильм не найден"))
     }
 
     return res.status(200).json(film);
@@ -42,8 +43,8 @@ const getUserFilmFlag = async (req, res, next) => {
             favorite: false
         }
         });
-    if (!userFlags) {
-        next(new Error("Какие-то проблемы с получением или инициализацией флажков юзера"))
+    if (!userFlags){
+        return next(createError(400, "Какие-то проблемы с получением или инициализацией флажков юзера"))
     }
 
     const { favorite, isWatched, rating } = userFlags;
@@ -57,7 +58,7 @@ const getUserFilmWithScores = async (req, res, next) => {
     const data = await UserFilms.findAll({where: {userId, rating: { [Op.gt]: 0}}})
 
     if (!data) {
-        return res.status(200).json({message: "У пользователя нет оценённых фильмов"})
+        return next(createError(400, "У пользователя нет оценённых фильмов"))
     }
 
     const kinopoiskIdList = data.filter(el => el.kinopoiskId).map(el => el.kinopoiskId);
@@ -65,7 +66,7 @@ const getUserFilmWithScores = async (req, res, next) => {
     const filmList = await Film.findAll({where: {kinopoiskId: kinopoiskIdList}})
 
     if (!filmList) {
-        return next(new Error("Случилась какая-то ошибка с поиском фильмов по оценкам"))
+        return next(createError(409,  "Случилась какая-то ошибка с поиском фильмов по оценкам"));
     }
 
     const filmMap = {}
@@ -90,7 +91,7 @@ const getUserFilmWithFavorite = async (req, res, next) => {
     const data = await UserFilms.findAll({where: {userId, favorite : true}})
 
     if (!data || data.length === 0) {
-        return res.status(200).json({message: "У пользователя нет избранных фильмов"})
+        return next(createError(400, "У пользователя нет избранных фильмов"))
     }
 
     const kinopoiskIdList = data.filter(el => el.kinopoiskId).map(el => el.kinopoiskId);
@@ -98,7 +99,7 @@ const getUserFilmWithFavorite = async (req, res, next) => {
     const filmList = await Film.findAll({where: {kinopoiskId: kinopoiskIdList}})
 
     if (!filmList) {
-        return next(new Error("Случилась какая-то ошибка с поиском избранных фильмов"))
+        return next(createError(400, "Случилась какая-то ошибка с поиском избранных фильмов"))
     }
 
     return res.status(200).json(filmList)
@@ -113,7 +114,7 @@ const getUserFilms = async (req, res, next) => {
     const userChainList = await UserFilms.findAll({where: {userId}})
 
     if (userChainList.length === 0) {
-        return res.status(200).json({message: "У пользователя нет добавленных фильмов"})
+        return next(createError(400, "У пользователя нет добавленных фильмов"))
     }
 
     const kinopoiskIdList = userChainList.map(el => el.kinopoiskId).filter(Boolean)

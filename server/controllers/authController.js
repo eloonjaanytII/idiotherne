@@ -37,7 +37,7 @@ const getUser = async (req, res, next) => {
     const validPassword = bcrypt.compareSync(password, user.password);
 
     if (!validPassword || !user) {
-        return next(new Error(JSON.stringify({status: 400, message: 'Вы ввели некорректный юзернейм или пароль'})))
+        return next(createError(400,  'Вы ввели некорректный юзернейм или пароль'))
     }
 
     const token = generateAccessToken(user.id)  
@@ -50,7 +50,7 @@ const getUserId = async (req, res, next) => {
     const user = await User.findByPk(req.user.id);
 
     if (!user) {
-        return next(new Error(JSON.stringify({status: 404, message: 'Пользователь не найден'})))
+        return next(createError(404,  'Пользователь не найден'))
     }
 
     return res.json({userId: user.id})
