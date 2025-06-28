@@ -69,7 +69,7 @@ const MovieDetail: React.FC = () => {
   }
 
   if (isFilmDetailLoading || isStaffLoading || isLoadingReviews || isLoadingFlag) return <div>Is Loading...</div>
-  if (filmDetailError || staffError || dataError || reviewsError) return <ErrorMessage />
+  if (filmDetailError || dataError) return <ErrorMessage />
   if (!filmDetail) return <div>Films isnt exist...</div>
 
   return (
