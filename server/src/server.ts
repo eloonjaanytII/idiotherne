@@ -1,7 +1,5 @@
 const express = require('express');
-const {sequelize} = require('./db.js')
-
-const PORT = process.env.PORT || 5000;
+const {sequelize} = require('./db')
 
 const authRouter = require('./routes/authRouter.js')
 const reviewRouter = require('./routes/reviewRouter.js')
@@ -10,6 +8,9 @@ const filmsRouter = require('./routes/filmsRouter.js')
 
 const cors = require('cors');
 const {errorHandler} = require('./middleware/errorHandler.js');
+
+
+const PORT: number = Number(process.env.PORT) || 5000;
 
 const app = express();
 
@@ -24,15 +25,15 @@ app.use('/api/films', filmsRouter)
 
 app.use(errorHandler)
 
-const start = async () => {
+const start = async (): Promise<void> => {
   try{
-
     await sequelize.authenticate();
     console.log('DB connected');
-    await sequelize.sync({ force: false });
 
+    await sequelize.sync({ force: false });
     app.listen(PORT, () => console.log('Сервер запущен '))
-  }catch(error) {
+
+  } catch(error) {
     console.error('Unable to connect to the database:', error);
   }
 }
