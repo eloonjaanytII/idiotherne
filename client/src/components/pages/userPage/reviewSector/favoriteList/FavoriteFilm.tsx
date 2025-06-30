@@ -16,8 +16,8 @@ const FavoriteFilm: React.FC <FavoriteFilmProps> = ({nameRu, posterUrl, idx}) =>
         <div className='flex flex-col justify-center text-center'>
             <p className="text-lg">{nameRu || "Неизвестное название"}</p>
         </div>
-        <div className="h-15 w-10 p-[0.2rem]">
-          <img src={posterUrl ?? undefined} alt="film" className='h-full w-full object-contain rounded-md'/>
+        <div className="h-15 max-w-10 min-w-10 p-[0.2rem]">
+          <img src={posterUrl ?? undefined} alt="film" className='h-full w-full object-cover rounded-md'/>
         </div>
     </div>
   )

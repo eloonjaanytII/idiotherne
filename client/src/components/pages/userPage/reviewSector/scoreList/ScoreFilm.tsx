@@ -19,24 +19,24 @@ const ScoreFilm: React.FC <ScoreFilmProps> = ({nameRu, rating, posterUrl, idx}) 
 
   return (
     <div className={`
-    w-[100%] min-h-15 grid grid-cols-[10%_80%_10%] items-center justify-center
-    border-1 border-black rounded-md pl-4 pr-2
+    w-[100%] min-h-15 flex justify-between items-center
+    border-1 border-black rounded-md pl-4 gap-2
     ${getRatingColor(rating)}
     text-black
     hover:bg-accent hover:scale-99 
     transition-transform duration-200`}>
-        <div>
+        <div className='mr-2'>
           {idx}.
         </div>
-        <div className='grid grid-cols-2 gap-x-5 items-center'>
+        <div className='flex-1 flex items-center justify-between gap-2 mr-2'>
             <div className='text-center'>
                 <p className="text-lg">{nameRu}</p>
             </div>
-            <div className=''>
+            <div className='flex justify-center'>
                 <ReadOnlyRating rating={rating} />
             </div>
         </div>
-        <div className='h-15 w-10 p-1 flex justify-end md:ml-5'>
+        <div className='h-15 min-w-10 max-w-10 p-1 md:flex justify-end md:ml-5 hidden'>
           <img src={posterUrl ?? undefined} alt="film" className='h-full w-full object-cover rounded-sm'/>
         </div>
 

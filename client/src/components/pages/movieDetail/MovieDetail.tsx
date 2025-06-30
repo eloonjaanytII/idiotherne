@@ -79,7 +79,7 @@ const MovieDetail: React.FC = () => {
   return (
     <div className='m-auto w-[80vw] mt-10'>
       <div className='grid grid-cols-1 md:grid-cols-[50%_50%] border-b-2 p-3 text-center'>
-        <div className="md:border-r-2 flex flex-col justify-start items-center ">
+        <div className="md:border-r-2 flex flex-col justify-start items-center pr-2">
           <img alt={filmDetail.nameRu || 'Постер фильма'} width="60%" className="shadow-2xl mb-5" src={filmDetail.posterUrl ?? undefined}/>
           <h1 className="text-5xl mb-5 font-jura tracking-tighter ">{filmDetail.nameRu}</h1>
           <div className="font-jura tracking-tighter text-xl">
