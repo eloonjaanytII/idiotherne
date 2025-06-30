@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FilmData } from '../../services/types/films';
 import { StaffPerson } from '../../services/types/kinopoisk';
+import MoviePersonCard from './movieUI/MoviePersonCard';
 
 interface MovieInfoProps {
   filmDetail: FilmData;
@@ -22,14 +23,7 @@ export const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
               <p className='text-center font-semibold text-xl mb-3 mt-3'>Режиссёр:</p>
               {uniqueStaff.filter(actor => actor.professionText === 'Режиссеры').map(el => (
                   <Link to={`/actor/${el.staffId}`} key={`${el.staffId}-${el.professionText}`}>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
-                          <img 
-                            src={typeof el.posterUrl === 'string' && el.posterUrl ? el.posterUrl : '/fallback.png'}
-                            alt={el.nameRu || 'Персона'}
-                            width="50rem" 
-                            className='object-contain h-[90%] rounded-lg'/>
-                          <p className='text-lg text-center mr-4'>{el.nameRu}</p>
-                        </div>
+                    <MoviePersonCard posterUrl={el.posterUrl} nameRu={el.nameRu}/>
                   </Link>
                 ))
               }
@@ -38,14 +32,7 @@ export const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
               <p className='text-center font-semibold text-xl mb-3 mt-3'>Оператор:</p>
               {uniqueStaff.filter(actor => actor.professionText === 'Операторы').map(el => (
                   <Link to={`/actor/${el.staffId}`} key={`${el.staffId}-${el.professionText}`}>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200 mb-2'>
-                          <img 
-                            src={typeof el.posterUrl === 'string' && el.posterUrl ? el.posterUrl : '/fallback.png'}
-                            alt={el.nameRu || 'Персона'}
-                            width="50rem" 
-                            className='object-contain h-[90%] rounded-lg'/>
-                          <p className='text-lg text-center mr-4'>{el.nameRu}</p>
-                        </div>
+                    <MoviePersonCard posterUrl={el.posterUrl} nameRu={el.nameRu}/>
                   </Link>
                 ))
               }
@@ -58,14 +45,8 @@ export const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
                 .map(el => (
                   <li key={`${el.staffId}-${el.professionText}`}>
                      <Link to={`/actor/${el.staffId}`}>
-                        <div className='flex border-2 rounded-md justify-between items-center hover:bg-base-300 h-18 hover:scale-102 transition-transform duration-200'>
-                          <img 
-                            alt={el.nameRu || 'Персона'}
-                            src={typeof el.posterUrl === 'string' && el.posterUrl ? el.posterUrl : '/fallback.png'}
-                            width="50rem" className='pl-1 object-contain h-[90%] rounded-lg'/>
-                          <p className='text-lg text-center mr-4'>{el.nameRu}</p>
-                        </div>
-                  </Link>
+                        <MoviePersonCard posterUrl={el.posterUrl} nameRu={el.nameRu}/>
+                      </Link>
                   </li>
                  
                 ))
