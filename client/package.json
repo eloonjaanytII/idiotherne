@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.7.0",
     "@tailwindcss/vite": "^4.1.4",
+    "@types/socket.io-client": "^1.4.36",
     "bear-react-carousel": "^5.2.1",
     "daisyui": "^5.0.28",
     "prop-types": "^15.8.1",
@@ -26,6 +27,7 @@
     "react-svg-worldmap": "^2.0.0-alpha.16",
     "react-tooltip": "^5.29.0",
     "recharts": "^2.15.3",
+    "socket.io-client": "^4.8.1",
     "typescript-eslint": "^8.35.0",
     "zod": "^3.25.17"
   },

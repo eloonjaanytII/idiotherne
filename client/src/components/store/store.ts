@@ -4,6 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import currentMovieReducer from './features/currentMovieSlice';
 import authSliceReducer from './features/authSlice';
 import userPageReducer from './features/userPageSlice';
+import onlineStatusReducer from './features/onlineStatusSlice';
 
 import { kinopoiskApi } from '../services/kinopoisk';
 import { authApi } from '../services/auth';
@@ -16,6 +17,7 @@ export const store = configureStore({
     currentMovie: currentMovieReducer,
     authSlice: authSliceReducer,
     userPageSlice: userPageReducer,
+    onlineStatus: onlineStatusReducer,
     
     [kinopoiskApi.reducerPath]: kinopoiskApi.reducer,
     [authApi.reducerPath]: authApi.reducer,

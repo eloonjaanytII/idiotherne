@@ -5,7 +5,7 @@ import ErrorMessage from '../../ui/errorMessage/ErrorMessage';
 
 const Movies = () => {
   
-  const {isLoading,
+  const {isLoading, 
          hasError,
          responsePopular, 
          responseBest,

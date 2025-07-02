@@ -11,7 +11,6 @@ if (!container) {
   throw new Error("Не найден элемент с id 'root'.");
 }
 
-
 createRoot(container).render(
   <Provider store={store}>
     <App />

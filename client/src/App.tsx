@@ -16,6 +16,7 @@ import PublicRouter from './components/ui/publicRouter/PublicRouter';
 import AuthProvider from './components/ui/authProvider/AuthProvider';
 import UsersList from './components/pages/usersList/UsersList';
 import { GlobalMap } from './components/pages/globalMap/GlobalMap';
+import { useWebSocket } from './components/hooks/useWebSocket';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
   })),
 ];
 
+  useWebSocket();
 
   const router = createBrowserRouter([
     {

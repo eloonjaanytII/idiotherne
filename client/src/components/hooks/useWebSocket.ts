@@ -1,0 +1,43 @@
+import { useEffect } from "react";
+import { useAppDispatch } from "../store/hooks"
+import { setOnlineUsers } from "../store/features/onlineStatusSlice";
+
+
+
+export const useWebSocket = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+
+    const ws = new WebSocket('wss://idiotherne.ru/ws', [token]);
+
+    ws.onopen = () => {
+    }
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'online_users') {
+          dispatch(setOnlineUsers(data.payload));
+        }
+      } catch (error) {
+        console.error('Ошибка парсинга', error);
+      }
+    }
+
+    ws.onclose = () => {
+      console.log('Closed');
+    };
+
+    ws.onerror = (err) => {
+      console.error('WS Error', err);
+    };
+
+    return () => ws.close();
+
+  }, [dispatch])
+}
