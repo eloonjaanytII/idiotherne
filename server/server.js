@@ -1,17 +1,23 @@
 const express = require('express');
 const {sequelize} = require('./db.js')
-
-const PORT = process.env.PORT || 5000;
+const cors = require('cors');
+const {errorHandler} = require('./middleware/errorHandler.js');
+const { createServer } = require('http');
 
 const authRouter = require('./routes/authRouter.js')
 const reviewRouter = require('./routes/reviewRouter.js')
 const usersRouter = require('./routes/usersRouter.js')
-const filmsRouter = require('./routes/filmsRouter.js')
+const filmsRouter = require('./routes/filmsRouter.js');
+const { initWebsocketServer } = require('./socket.js');
+require('dotenv').config();
 
-const cors = require('cors');
-const {errorHandler} = require('./middleware/errorHandler.js');
+
+const PORT = process.env.PORT || 5000;
 
 const app = express();
+const httpServer = createServer(app);
+
+initWebsocketServer(httpServer);
 
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json())
@@ -31,7 +37,7 @@ const start = async () => {
     console.log('DB connected');
     await sequelize.sync({ force: false });
 
-    app.listen(PORT, () => console.log('Сервер запущен '))
+    httpServer.listen(PORT, () => console.log('Сервер запущен '))
   }catch(error) {
     console.error('Unable to connect to the database:', error);
   }
