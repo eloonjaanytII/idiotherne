@@ -10,7 +10,7 @@ export const useWebSocket = (token: string | null) => {
   useEffect(() => {
     if (!token) return;
 
-    const ws = new WebSocket('ws://localhost:5000', [token]);
+    const ws = new WebSocket('wss://idiotherne.ru/ws', [token]);
 
     ws.onopen = () => {
     }
