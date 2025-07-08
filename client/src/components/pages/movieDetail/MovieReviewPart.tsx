@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom'
 
 interface MovieReview {
@@ -42,4 +43,4 @@ const MovieReviewPart: React.FC<MovieReviewProps> = ({movieReviews}) => {
   )
 }
 
-export default MovieReviewPart
+export default memo(MovieReviewPart);

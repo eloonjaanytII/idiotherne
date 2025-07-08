@@ -3,11 +3,11 @@ import { TOP_LISTS } from '../../../constants'
 
 const NavbarLogo = () => {
   return (
-    <div className="dropdown dropdown-hover mr-5 md:mr-20 cursor-pointer">
+    <div className="dropdown dropdown-hover cursor-pointer">
         <div tabIndex={0} role="button" >
-        <div className='flex items-center mb-2' onClick={(e) => {e.currentTarget.blur()}}>
-            <img src="/logo1.png" alt="logo" className='w-12 h-12 rounded-xl border-black border p-0.5'/>
-            <p className="font-idiotherne tracking-tighter text-3xl p-2 mt-2.5 text-red-700 hidden md:block ">Idiotherne</p>
+        <div className='flex items-end mb-2' onClick={(e) => {e.currentTarget.blur()}}>
+            <img src="/logo1.png" alt="logo" className='w-12 h-12 rounded-xl border-black border p-0.5 mr-2'/>
+            <p className="font-idiotherne tracking-tighter text-3xl text-red-700 hidden md:block ">Idiotherne</p>
           </div>
         </div>
         <ul 

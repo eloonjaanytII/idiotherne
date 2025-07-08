@@ -1,3 +1,5 @@
+import {memo} from 'react';
+
 interface Flags {
   isWatched: boolean;
   favorite: boolean;
@@ -24,6 +26,6 @@ const MovieFlags: React.FC<MovieFlagsProps>= ({flags, flagHandler}) => {
         {flags.favorite ? "В избранном" : "В избранное"}</div>
     </div>
   )
-}
+};
 
-export default MovieFlags
+export default memo(MovieFlags);

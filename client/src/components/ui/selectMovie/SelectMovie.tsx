@@ -1,3 +1,4 @@
+import { memo } from "react";
 
 interface Country {
     id?: number;
@@ -92,4 +93,4 @@ const SelectMovie: React.FC<SelectMovieProps>= ({
   )
 }
 
-export default SelectMovie
+export default memo(SelectMovie);

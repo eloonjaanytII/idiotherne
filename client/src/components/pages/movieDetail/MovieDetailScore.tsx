@@ -1,4 +1,4 @@
-
+import { memo } from "react";
 interface MovieScore {
   rate : number;
   rateHandler: (rate: number) => void;
@@ -26,4 +26,4 @@ const MovieDetailScore: React.FC<MovieScore> = ({rate, rateHandler}) => {
   );
 };
 
-export default MovieDetailScore;
+export default memo(MovieDetailScore);
