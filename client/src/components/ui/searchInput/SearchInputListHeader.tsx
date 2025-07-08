@@ -10,7 +10,7 @@ interface SearchInputHeaderProps {
 
 const SearchInputListHeader: React.FC <SearchInputHeaderProps> = ({results, setKeyword, setResults}) => {
   return (
-    <ul className = "absolute z-50 mt-1 w-full max-h-60 bg-base-100 shadow rounded-box overflow-y-auto border-2 border-accent no-scrollbar">
+    <ul className = "absolute w-full max-h-60 bg-base-100 shadow rounded-box overflow-y-auto border-2 border-accent no-scrollbar">
           { results.map(item => (
             <li key = {item.kinopoiskId}>
               <Link

@@ -5,9 +5,9 @@ import { useGetFilmQuery, useGetUserFilmFlagQuery, useSendFilmsMutation } from '
 import { useGetMovieReviewsQuery } from '../../services/review';
 import MovieReviewPart from './MovieReviewPart';
 import MovieFlags from './MovieFlags';
-import { MovieInfo } from './MovieInfo';
+import MovieInfo from './MovieInfo';
 import MovieDetailScore from './MovieDetailScore';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface Flags {
   isWatched: boolean;
@@ -37,7 +37,7 @@ const MovieDetail: React.FC = () => {
     }
   }, [dataFlag, isSuccessFlag])
 
-  const rateHandler = async (value: number) => {
+  const rateHandler = useCallback(async (value: number) => {
 
     setRate(value);
 
@@ -49,9 +49,9 @@ const MovieDetail: React.FC = () => {
         console.log(`Установка рейтинга вызвала какую-то ошибку ${error}`)
      }
 
-  }
+  }, [kinopoiskId, send])
 
-  const flagHandler = async (typeFlag : "isWatched" | "favorite") => {
+  const flagHandler = useCallback(async (typeFlag : "isWatched" | "favorite") => {
 
     const newValue = !flags[typeFlag];
     const newFlags = {...flags, [typeFlag] : newValue};
@@ -66,7 +66,7 @@ const MovieDetail: React.FC = () => {
         console.log(`Установка флага вызвала какую-то ошибку ${error}`)
      }
 
-  }
+  }, [flags, kinopoiskId, send]);
 
   if (isFilmDetailLoading) return <div>Загрузка данных о фильме...</div>
   if (isStaffLoading) return <div>Загрузка данных об актёрах....</div>

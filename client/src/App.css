@@ -41,10 +41,11 @@
   align-items: center;
   border: 0.1rem solid rgb(255, 255, 255);
   border-radius: 2rem;
-  height: 2.5rem;
+  height: 3rem;
   padding: 1rem;
   color: #fff;
   background-color: #000000;
+  cursor: pointer;
 }
 
 .button-film.active {
@@ -52,7 +53,7 @@
   font-family: "SF-Regular";
   align-items: center;
   border-radius: 2rem;
-  height: 2.5rem;
+  height: 3rem;
   padding: 1rem;
   border: 0.1rem solid black;
   color: black;
@@ -120,6 +121,13 @@
     --font-semibold: "SF-Semibold", 'sans-serif';
     --font-regular: "SF-Regular", 'sans-serif';
     --font-jura: "Jura", "sans-serif";
+    --color-main-text: #673c36;
+}
+
+
+  
+.text-stroke {
+  -webkit-text-stroke: 1px #5eea67;
 }
 
 html {

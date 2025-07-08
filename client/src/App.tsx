@@ -17,9 +17,12 @@ import AuthProvider from './components/ui/authProvider/AuthProvider';
 import UsersList from './components/pages/usersList/UsersList';
 import { GlobalMap } from './components/pages/globalMap/GlobalMap';
 import { useWebSocket } from './components/hooks/useWebSocket';
+import { useAppSelector } from './components/store/hooks';
 
 
 const App = () => {
+
+  const token = useAppSelector(state => state.authSlice.token)
 
   const topListRoutes = [
   ...TOP_LISTS.map(elem => ({
@@ -32,7 +35,7 @@ const App = () => {
   })),
 ];
 
-  useWebSocket();
+  useWebSocket(token);
 
   const router = createBrowserRouter([
     {

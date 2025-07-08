@@ -52,7 +52,7 @@ const Registration: React.FC = () => {
       
       localStorage.setItem('token', response.token)
       localStorage.setItem('userId', response.userId.toString())
-      dispatch(setCredentials(response.userId))
+      dispatch(setCredentials({userId: response.userId, token: response.token}))
       navigate(`/user/${response.userId}`)
     } 
     catch (error) {

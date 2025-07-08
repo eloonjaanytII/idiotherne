@@ -4,16 +4,13 @@ import { setOnlineUsers } from "../store/features/onlineStatusSlice";
 
 
 
-export const useWebSocket = () => {
+export const useWebSocket = (token: string | null) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
-    const ws = new WebSocket('wss://idiotherne.ru/ws', [token]);
+    const ws = new WebSocket('ws://localhost:5000', [token]);
 
     ws.onopen = () => {
     }
@@ -39,5 +36,5 @@ export const useWebSocket = () => {
 
     return () => ws.close();
 
-  }, [dispatch])
+  }, [dispatch, token])
 }

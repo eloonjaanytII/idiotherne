@@ -12,7 +12,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     if (token && userId) {
-      dispatch(setCredentials(Number(userId)));
+      dispatch(setCredentials({userId: Number(userId), token: token}));
     }
     setLoaded(true); // чтобы не отрендерить детей до завершения
   }, [dispatch]);

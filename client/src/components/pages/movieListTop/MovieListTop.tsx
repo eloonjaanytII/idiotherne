@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import { useGetFilmsCollectionsQuery, useGetFilmsQuery, useGetGenresAndCountriesQuery } from '../../services/kinopoisk'
 import {useLocation, Location, Navigate } from 'react-router-dom'
 import { TOP_LISTS } from '../../../constants'
@@ -63,18 +63,22 @@ const MovieListTop = () => {
 
   if (query.error || listGenresAndCountriesError) return <ErrorMessage />
 
+
+  const onChangeCountry = useCallback((value: number) => dispatch(setCountry(value)), [dispatch]);
+  const onChangeYear = useCallback(({yearFrom, yearTo}: {yearFrom: number, yearTo: number}) => dispatch(setYear({yearFrom, yearTo})), [dispatch]);
+  const onChangeOrder = useCallback((value: string) => dispatch(setOrder(value)), [dispatch]);
+  const onChangeGenre = useCallback((value: number) => dispatch(setGenre(value)), [dispatch]);
+  const onReset = useCallback(() => dispatch(resetFilters()), [dispatch]);
+
+
+
   return (
     <div>
       {!isCollections &&
         <SelectMovie  countriesList = {listGenresAndCountries?.countries || []}
                       genresList = {listGenresAndCountries?.genres || []}
-                      {...{countries, genres, order, yearFrom, yearTo}}
-                      onChangeCountry = {(value: number) => dispatch(setCountry(value))}
-                      onChangeYear = {({yearFrom, yearTo}: {yearFrom: number, yearTo: number}) => dispatch(setYear({yearFrom, yearTo}))}
-                      onChangeOrder = {(value: string) => dispatch(setOrder(value))}
-                      onChangeGenre = {(value: number) => dispatch(setGenre(value))}
-                      onReset = {() => dispatch(resetFilters())}
-        />
+                      {...{countries, genres, order, yearFrom, yearTo, 
+                           onChangeCountry, onChangeYear, onChangeOrder, onChangeGenre, onReset}}/>
       }
       <MovieList items={query.data?.items ||[]} 
                  totalPages = {query.data?.totalPages || 1}

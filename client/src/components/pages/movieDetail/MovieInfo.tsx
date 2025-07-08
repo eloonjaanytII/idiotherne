@@ -2,15 +2,16 @@ import { Link } from 'react-router-dom'
 import { FilmData } from '../../services/types/films';
 import { StaffPerson } from '../../services/types/kinopoisk';
 import MoviePersonCard from './movieUI/MoviePersonCard';
+import { memo, useMemo } from 'react';
 
 interface MovieInfoProps {
   filmDetail: FilmData;
   staff: StaffPerson[];
 }
 
-export const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
+const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
 
-  const uniqueStaff = staff.filter((el, index, self) => index === self.findIndex(d => d.staffId === el.staffId));
+  const uniqueStaff = useMemo(() => staff.filter((el, index, self) => index === self.findIndex(d => d.staffId === el.staffId)), [staff]);
 
   return (
     <div>
@@ -56,3 +57,5 @@ export const MovieInfo: React.FC<MovieInfoProps> = ({filmDetail, staff}) => {
         </div>
   )
 }
+
+export default memo(MovieInfo);

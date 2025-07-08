@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { FilmItem } from '../../services/types/kinopoisk';
 
 const MovieCard: React.FC <{item: FilmItem}> = ({item}) => {
@@ -34,4 +34,4 @@ const MovieCard: React.FC <{item: FilmItem}> = ({item}) => {
   )
 }
 
-export default MovieCard
+export default memo(MovieCard);

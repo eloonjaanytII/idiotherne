@@ -2,6 +2,7 @@ import MovieCard from '../movieCard/MovieCard'
 import Pagination from '../pagination/Pagination'
 import MovieCardSkeleton from '../movieCard/MovieCardSkeleton'
 import { FilmItem } from '../../services/types/kinopoisk'
+import { memo } from 'react';
 
 
 interface MovieListProps {
@@ -22,7 +23,6 @@ const MovieList: React.FC <MovieListProps> = ({items, totalPages, currentPage, s
           <MovieCardSkeleton key = {idx}/>
         ))}
       </div>
-      <div className="skeleton h-12 w-[50vw]"></div>
     </div>
   )
 
@@ -42,4 +42,4 @@ const MovieList: React.FC <MovieListProps> = ({items, totalPages, currentPage, s
   )
 }
 
-export default MovieList
+export default memo(MovieList);

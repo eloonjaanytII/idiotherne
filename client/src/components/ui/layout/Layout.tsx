@@ -7,7 +7,7 @@ const Layout: React.FC = () => {
   return (
     <div className="flex flex-col max-w-screen mx-auto">
         <Navbar/>
-        <main className="p-4 w-[90vw] m-auto overflow-hidden min-h-[80vh]">
+        <main className="mt-14 p-4 w-[90vw] m-auto overflow-hidden min-h-[80vh]">
             <Suspense fallback={<div>is Loading...</div>}>
                 <Outlet/>
             </Suspense>

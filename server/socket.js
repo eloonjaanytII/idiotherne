@@ -9,7 +9,7 @@ const SECRET_KEY = process.env.JWT_SECRET;
 const initWebsocketServer = (httpServer) => {
     
     const onlineUsers = new Map();
-    const wss = new ws.Server({ server: httpServer, path: '/ws' });
+    const wss = new ws.Server({ server: httpServer});
 
     wss.on('connection', async (socket, req) => {
 
